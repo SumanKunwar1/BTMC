@@ -5,7 +5,7 @@ export const courseCategories: CourseCategory[] = [
     id: 'buddhism',
     title: 'Buddhism',
     description: 'Comprehensive courses covering various aspects of Buddhist philosophy and practice',
-    image: 'https://images.unsplash.com/photo-1519833547756-d27ac120e3e6?auto=format&fit=crop&q=80',
+    image: 'https://res.cloudinary.com/dihev9qxc/image/upload/v1762066790/a-photograph-of-a-traditional-tibetan-st_5dVQ3zNATyiLh2pw3JHGGQ_UkaTKqtCRcmqWjx05mNKpg_psmdex.jpg',
     courses: [
       {
         id: 'general-buddhism',
@@ -39,7 +39,7 @@ export const courseCategories: CourseCategory[] = [
     id: 'practical-buddhism',
     title: 'Practical Buddhism',
     description: 'Learn to apply Buddhist principles in daily life',
-    image: 'https://images.unsplash.com/photo-1519682577862-22b62b24e493?auto=format&fit=crop&q=80',
+    image: 'https://res.cloudinary.com/dihev9qxc/image/upload/v1762067523/a-serene-collage-style-illustration-depi_Rs_YVK4zRYewIUnNHT0q0w_e8L27cIHRRC36jH5ipdKXg_domwwz.jpg',
     courses: []
   },
   {

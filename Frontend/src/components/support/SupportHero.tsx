@@ -1,6 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Heart } from 'lucide-react';
+"use client"
+
+import { motion } from "framer-motion"
+import { Heart } from "lucide-react"
 
 const SupportHero = () => {
   return (
@@ -9,7 +10,7 @@ const SupportHero = () => {
         <div className="flex items-center space-x-4">
           <Heart className="w-12 h-12 text-white" />
           <div>
-            <motion.h1 
+            <motion.h1
               className="text-4xl font-bold text-white mb-2"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -17,7 +18,7 @@ const SupportHero = () => {
             >
               Support Our Cause
             </motion.h1>
-            <motion.p 
+            <motion.p
               className="text-red-100 text-lg"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -29,7 +30,7 @@ const SupportHero = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default SupportHero;
+export default SupportHero

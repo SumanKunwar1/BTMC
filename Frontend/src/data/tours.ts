@@ -5,7 +5,7 @@ export const tours: Tour[] = [
     id: 'usa-canada-tour',
     title: '10-days USA & Canada Tour',
     days: 10,
-    image: 'https://images.unsplash.com/photo-1501435764075-903868ebb179?auto=format&fit=crop&q=80',
+    image: 'https://cdn.kimkim.com/files/a/images/55249dce3695bdf396cfd66c6a62cda7c03522b9/medium-f37bd12eb918b67fadfd6e0d8e4d4aad.jpg',
     description: 'Experience the spiritual journey through sacred Buddhist sites in North America, including temples, meditation centers, and cultural landmarks.',
     highlights: [
       'Visit major Buddhist temples in New York',
@@ -37,7 +37,7 @@ export const tours: Tour[] = [
     id: 'tibet-mansarovar',
     title: '15-days Tibet Mansarovar Tour',
     days: 15,
-    image: 'https://images.unsplash.com/photo-1513023840371-dd774153c90d?auto=format&fit=crop&q=80',
+    image: 'https://boundlessadventure.com/wp-content/uploads/2023/07/Kailash-ji-Tour.jpg',
     description: 'A spiritual pilgrimage to Mount Kailash and Lake Mansarovar, combining meditation, teaching, and sacred site visits.',
     highlights: [
       'Mount Kailash Parikrama',

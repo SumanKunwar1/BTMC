@@ -1,33 +1,34 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Users, BookOpen, Heart, Globe } from 'lucide-react';
+"use client"
+
+import { motion } from "framer-motion"
+import { Users, BookOpen, Heart, Globe } from "lucide-react"
 
 const impacts = [
   {
     icon: Users,
-    number: '5000+',
-    title: 'Students Supported',
-    description: 'Providing education and guidance to practitioners worldwide'
+    number: "5000+",
+    title: "Students Supported",
+    description: "Providing education and guidance to practitioners worldwide",
   },
   {
     icon: BookOpen,
-    number: '1000+',
-    title: 'Teaching Hours',
-    description: 'Delivering quality Buddhist education and meditation instruction'
+    number: "1000+",
+    title: "Teaching Hours",
+    description: "Delivering quality Buddhist education and meditation instruction",
   },
   {
     icon: Heart,
-    number: '20+',
-    title: 'Community Programs',
-    description: 'Supporting local communities through various initiatives'
+    number: "20+",
+    title: "Community Programs",
+    description: "Supporting local communities through various initiatives",
   },
   {
     icon: Globe,
-    number: '10+',
-    title: 'Countries Reached',
-    description: 'Spreading Buddhist wisdom across international borders'
-  }
-];
+    number: "10+",
+    title: "Countries Reached",
+    description: "Spreading Buddhist wisdom across international borders",
+  },
+]
 
 const ImpactSection = () => {
   return (
@@ -62,7 +63,7 @@ const ImpactSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ImpactSection;
+export default ImpactSection

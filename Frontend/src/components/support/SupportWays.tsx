@@ -1,17 +1,76 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import SupportModal from './SupportModal';
-import { supportWays } from '../../data/supportWays';
-import { SupportWay } from '../../types/support';
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Heart, Users, Briefcase, BookOpen } from "lucide-react"
+import SupportModal from "./SupportModal"
+
+interface SupportWay {
+  title: string
+  description: string
+  fullDescription: string
+  benefits: string[]
+  icon: React.ComponentType<{ className?: string }>
+  image: string
+}
+
+const supportWays: SupportWay[] = [
+  {
+    title: "One-time Donation",
+    description: "Make a one-time contribution to support our mission",
+    fullDescription:
+      "Your one-time donation provides immediate support for our programs and helps us respond quickly to community needs.",
+    benefits: [
+      "Direct impact on our programs",
+      "Tax-deductible donation",
+      "Receive donation receipt",
+      "Support our mission immediately",
+    ],
+    icon: Heart,
+    image: "https://images.unsplash.com/photo-1532996122724-8f3c2cd83c5d?auto=format&fit=crop&q=80",
+  },
+  {
+    title: "Monthly Giving",
+    description: "Become a sustaining member with regular donations",
+    fullDescription:
+      "Become a sustaining member with monthly donations to provide consistent support for our long-term initiatives.",
+    benefits: ["Consistent monthly impact", "Tax benefits", "Recognition in our community", "Flexible monthly amount"],
+    icon: Users,
+    image: "https://images.unsplash.com/photo-1559027615-cd1628902249?auto=format&fit=crop&q=80",
+  },
+  {
+    title: "Volunteer",
+    description: "Contribute your time and skills to support us",
+    fullDescription: "Join our volunteer team and help us deliver quality programs and services to our community.",
+    benefits: [
+      "Make a personal impact",
+      "Build community connections",
+      "Develop new skills",
+      "Flexible time commitment",
+    ],
+    icon: Briefcase,
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
+  },
+  {
+    title: "In-Kind Donation",
+    description: "Donate goods or services to support our mission",
+    fullDescription: "Contribute material goods or professional services to help us expand our reach and impact.",
+    benefits: ["Tax deductible", "Recycled resources", "Community partnerships", "Special recognition"],
+    icon: BookOpen,
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
+  },
+]
 
 const SupportWays = () => {
-  const [selectedWay, setSelectedWay] = useState<SupportWay | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedWay, setSelectedWay] = useState<SupportWay | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleLearnMore = (way: SupportWay) => {
-    setSelectedWay(way);
-    setIsModalOpen(true);
-  };
+    setSelectedWay(way)
+    setIsModalOpen(true)
+  }
 
   return (
     <section className="py-16">
@@ -50,13 +109,9 @@ const SupportWays = () => {
         </div>
       </div>
 
-      <SupportModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        supportWay={selectedWay}
-      />
+      <SupportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} supportWay={selectedWay} />
     </section>
-  );
-};
+  )
+}
 
-export default SupportWays;
+export default SupportWays

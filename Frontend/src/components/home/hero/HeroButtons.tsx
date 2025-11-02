@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -24,7 +23,7 @@ const HeroButtons = () => {
         custom={0}
       >
         <Link
-          to="/courses"
+          to="/teachings"
           className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors"
         >
           Enroll in a Course
@@ -37,7 +36,7 @@ const HeroButtons = () => {
         custom={1}
       >
         <Link
-          to="/pilgrimage"
+          to="/tours"
           className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg transition-colors"
         >
           Join Pilgrimage Tour

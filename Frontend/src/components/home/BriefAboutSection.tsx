@@ -15,7 +15,7 @@ const BriefAboutSection = () => {
             transition={{ duration: 0.6 }}
           >
             <motion.img
-              src="https://images.unsplash.com/photo-1609619385002-f40f1df9b7eb?auto=format&fit=crop&q=80"
+              src="https://res.cloudinary.com/dihev9qxc/image/upload/v1762067523/a-harmonious-collage-style-illustration-_ldwA_JRIQFmvzQgbkHNb4w_e8L27cIHRRC36jH5ipdKXg_jvdxn6.jpg"
               alt="Buddhist Temple"
               className="w-full h-[400px] object-cover"
               whileHover={{ scale: 1.05 }}

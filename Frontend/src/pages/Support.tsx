@@ -1,4 +1,3 @@
-import React from 'react';
 import SupportHero from '../components/support/SupportHero';
 import DonationSection from '../components/support/DonationSection';
 import ImpactSection from '../components/support/ImpactSection';
