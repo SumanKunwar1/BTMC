@@ -17,6 +17,7 @@ import Team from './pages/Team';
 import Gallery from './pages/Gallery';
 import Career from './pages/Career';
 import FAQ from './pages/FAQ';
+import ContactPage from './pages/contact';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/career" element={<Career />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer />
