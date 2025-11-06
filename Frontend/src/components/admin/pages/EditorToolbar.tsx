@@ -2,7 +2,7 @@ import React from 'react';
 import { Editor } from '@tiptap/react';
 import {
   Bold, Italic, Underline, List, ListOrdered, Link, Image,
-  AlignLeft, AlignCenter, AlignRight, Type, Palette
+  AlignLeft, AlignCenter, AlignRight, Type,
 } from 'lucide-react';
 
 interface EditorToolbarProps {
