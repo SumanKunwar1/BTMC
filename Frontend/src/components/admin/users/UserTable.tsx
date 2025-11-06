@@ -1,4 +1,3 @@
-import React from 'react';
 import { Mail, Phone, MoreVertical } from 'lucide-react';
 import { mockUsers } from '../../../data/mockData';
 

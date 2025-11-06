@@ -11,7 +11,7 @@ const HeroSection = () => {
         transition={{ duration: 1 }}
       >
         <img
-          src="src\assets\a-cinematic-wide-angle-photograph-of-a-m_CEoy2EDiQumPNWzhdw5_uw_I_igCA0-S7CF5gMT-vWVEA.jpeg"
+          src="https://res.cloudinary.com/dihev9qxc/image/upload/v1762414567/a-cinematic-wide-angle-photograph-of-a-m_CEoy2EDiQumPNWzhdw5_uw_I_igCA0-S7CF5gMT-vWVEA_wftgth.jpg"
           alt="BTMC Foundation"
           className="w-full h-full object-cover"
         />
