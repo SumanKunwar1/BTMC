@@ -1,4 +1,3 @@
-import React from 'react';
 import { BookOpen, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -32,7 +31,7 @@ const AboutContent = () => {
               Welcome to BTMC Foundation
             </motion.h2>
             <motion.p
-              className="text-lg text-gray-700"
+              className="text-lg text-gray-700 text-justify"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: false }}
@@ -43,7 +42,7 @@ const AboutContent = () => {
               Buddhist teachings and meditation practices.
             </motion.p>
             <motion.p
-              className="text-lg text-gray-700"
+              className="text-lg text-gray-700 text-justify"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: false }}
@@ -64,7 +63,7 @@ const AboutContent = () => {
             transition={{ duration: 0.6 }}
           >
             <motion.img
-              src="https://images.unsplash.com/photo-1609619385002-f40f1df9b7eb?auto=format&fit=crop&q=80"
+              src="https://res.cloudinary.com/dihev9qxc/image/upload/v1762066790/a-photograph-of-a-traditional-tibetan-st_5dVQ3zNATyiLh2pw3JHGGQ_UkaTKqtCRcmqWjx05mNKpg_psmdex.jpg"
               alt="Buddhist Temple"
               className="rounded-lg shadow-xl"
               whileHover={{ scale: 1.02 }}

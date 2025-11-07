@@ -7,7 +7,7 @@ const AboutVision = () => {
         <div className="flex flex-col items-center text-center">
           <Sparkles className="w-12 h-12 mb-6" />
           <h2 className="text-3xl font-bold mb-6">Vision of BTMC Foundation</h2>
-          <p className="text-lg max-w-3xl">
+          <p className="text-lg max-w-3xl text-justify-center">
             Our vision is to create a world where individuals live in peace, compassion, and wisdom. 
             We strive to be a leading center for Buddhist education and spiritual growth, where people 
             from all walks of life can come to learn, practice, and grow in their spiritual journey. 
