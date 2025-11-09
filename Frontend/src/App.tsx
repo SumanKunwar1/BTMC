@@ -31,6 +31,7 @@ import AdminEvents from './pages/admin/AdminEvents';
 import Settings from './pages/admin/AdminSettings';
 import AdminTours from './pages/admin/AdminTours';
 import Users from './pages/admin/AdminUsers';
+import AdminSupportUser from './pages/admin/AdminSupportUser';
 
 // Authentication context
 const AuthContext = React.createContext<{
@@ -195,6 +196,15 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route 
+            path="/admin/support-users"
+            element={<ProtectedRoute>
+              <AdminSupportUser />
+            
+            </ProtectedRoute>
+            }
+            />
+
             <Route 
               path="/admin/donations" 
               element={

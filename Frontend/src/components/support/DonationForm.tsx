@@ -15,6 +15,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
     email: "",
     amount: "",
     frequency: supportType === "Monthly Giving" ? "monthly" : "one-time",
+    screenshot: null as File | null,
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -41,6 +42,12 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
     return Object.keys(newErrors).length === 0
   }
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, screenshot: e.target.files[0] })
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -65,6 +72,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
           email: "",
           amount: "",
           frequency: supportType === "Monthly Giving" ? "monthly" : "one-time",
+          screenshot: null,
         })
         setIsSuccess(false)
       }, 3000)
@@ -86,6 +94,21 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Bank Details Section */}
+      {["One-time Donation", "Monthly Giving"].includes(supportType) && (
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h4 className="font-semibold text-gray-800 mb-3">Bank Transfer Details</h4>
+          <div className="text-sm text-gray-600 space-y-1">
+            <p><span className="font-medium">Name:</span> B.T.M.C. Foundation</p>
+            <p><span className="font-medium">A/c no.:</span> 0570155982700014</p>
+            <p><span className="font-medium">Bank:</span> Prabhu Bank (Boudha Branch)</p>
+          </div>
+          <p className="text-xs text-gray-500 mt-3">
+            Please transfer your donation to the above account and upload the payment screenshot below.
+          </p>
+        </div>
+      )}
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
         <input
@@ -123,26 +146,45 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
       </div>
 
       {["One-time Donation", "Monthly Giving"].includes(supportType) && (
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
-          <input
-            type="number"
-            required
-            step="0.01"
-            min="0.01"
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 ${
-              errors.amount ? "border-red-500" : ""
-            }`}
-            placeholder="Enter donation amount"
-            value={formData.amount}
-            onChange={(e) => {
-              setFormData({ ...formData, amount: e.target.value })
-              if (errors.amount) setErrors({ ...errors, amount: "" })
-            }}
-            disabled={isLoading}
-          />
-          {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
-        </div>
+        <>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+            <input
+              type="number"
+              required
+              step="0.01"
+              min="0.01"
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 ${
+                errors.amount ? "border-red-500" : ""
+              }`}
+              placeholder="Enter donation amount"
+              value={formData.amount}
+              onChange={(e) => {
+                setFormData({ ...formData, amount: e.target.value })
+                if (errors.amount) setErrors({ ...errors, amount: "" })
+              }}
+              disabled={isLoading}
+            />
+            {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Payment Screenshot (Required)
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              onChange={handleFileChange}
+              disabled={isLoading}
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Please upload a screenshot of your bank transfer confirmation
+            </p>
+          </div>
+        </>
       )}
 
       <button
@@ -154,7 +196,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ supportType, onSuccess }) =
             : "bg-red-600 text-white hover:bg-red-700 active:scale-95"
         }`}
       >
-        {isLoading ? "Processing..." : supportType === "Volunteer" ? "Submit Application" : "Proceed to Payment"}
+        {isLoading ? "Processing..." : supportType === "Volunteer" ? "Submit Application" : "Submit Donation Details"}
       </button>
     </form>
   )

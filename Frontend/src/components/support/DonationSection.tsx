@@ -10,6 +10,7 @@ const DonationSection = () => {
     name: "",
     email: "",
     amount: "",
+    screenshot: null as File | null,
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -28,9 +29,17 @@ const DonationSection = () => {
     else if (Number.parseFloat(formData.amount) <= 0) {
       newErrors.amount = "Amount must be greater than 0"
     }
+    if (!formData.screenshot) newErrors.screenshot = "Payment screenshot is required"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, screenshot: e.target.files[0] })
+      if (errors.screenshot) setErrors({ ...errors, screenshot: "" })
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,7 +57,7 @@ const DonationSection = () => {
 
       // Reset form after 3 seconds
       setTimeout(() => {
-        setFormData({ name: "", email: "", amount: "" })
+        setFormData({ name: "", email: "", amount: "", screenshot: null })
         setIsSuccess(false)
       }, 3000)
     }, 1500)
@@ -56,7 +65,7 @@ const DonationSection = () => {
 
   return (
     <section className="py-16 relative">
-      <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dihev9qxc/image/upload/v1762075317/a-cinematic-wide-angle-photograph-of-a-m_CEoy2EDiQumPNWzhdw5_uw_I_igCA0-S7CF5gMT-vWVEA_hjhizg.jpg')] bg-cover bg-center">
+      <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dihev9qxc/image/upload/v1762075318/a-cinematic-wide-angle-photograph-of-a-m_CYibIl1yTZq0NLAJZrcvzA_I_igCA0-S7CF5gMT-vWVEA_wggrfk.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
 
@@ -118,6 +127,20 @@ const DonationSection = () => {
             ) : (
               <>
                 <h3 className="text-2xl font-bold mb-6">Make a Donation</h3>
+                
+                {/* Bank Details */}
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+                  <h4 className="font-semibold text-gray-800 mb-3">Bank Transfer Details</h4>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p><span className="font-medium">Name:</span> B.T.M.C. Foundation</p>
+                    <p><span className="font-medium">A/c no.:</span> 0570155982700014</p>
+                    <p><span className="font-medium">Bank:</span> Prabhu Bank (Boudha Branch)</p>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3">
+                    Please transfer your donation to the above account and upload the payment screenshot below.
+                  </p>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
@@ -176,6 +199,26 @@ const DonationSection = () => {
                     {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
                   </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Payment Screenshot (Required)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 ${
+                        errors.screenshot ? "border-red-500" : ""
+                      }`}
+                      onChange={handleFileChange}
+                      disabled={isLoading}
+                    />
+                    {errors.screenshot && <p className="text-red-500 text-xs mt-1">{errors.screenshot}</p>}
+                    <p className="text-xs text-gray-500 mt-1">
+                      Please upload a screenshot of your bank transfer confirmation
+                    </p>
+                  </div>
+
                   <button
                     type="submit"
                     disabled={isLoading}
@@ -185,7 +228,7 @@ const DonationSection = () => {
                         : "bg-red-600 text-white hover:bg-red-700 active:scale-95"
                     }`}
                   >
-                    {isLoading ? "Processing Donation..." : "Donate Now"}
+                    {isLoading ? "Processing Donation..." : "Submit Donation Details"}
                   </button>
                 </form>
               </>
