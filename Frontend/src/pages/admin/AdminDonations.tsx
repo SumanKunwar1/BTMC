@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Heart, Calendar, DollarSign } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';

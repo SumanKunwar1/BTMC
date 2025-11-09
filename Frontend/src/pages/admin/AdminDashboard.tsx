@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Calendar, BookOpen, Map } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';

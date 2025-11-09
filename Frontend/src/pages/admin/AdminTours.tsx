@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Search, Map, Calendar, Users } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { mockTours } from '../../data/mockData';
 
-const Tours = () => {
+const AdminTours = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -106,4 +106,4 @@ const Tours = () => {
   );
 };
 
-export default Tours;
+export default AdminTours;
