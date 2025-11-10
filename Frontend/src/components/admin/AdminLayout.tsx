@@ -23,7 +23,8 @@ const navigation = [
   { name: 'Tours', href: '/admin/tours', icon: Map },
   { name: 'Donations', href: '/admin/donations', icon: Heart },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
-  {name: 'Support', href: '/admin/support-users', icon: Users}
+  {name: 'Support', href: '/admin/support-users', icon: Users},
+  {name: 'Tour-Users', href:'/admin/tour/users', icon: Users}
 ];
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {

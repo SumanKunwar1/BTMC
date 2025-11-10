@@ -26,7 +26,29 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Save booking to localStorage for admin panel
+    const bookingData = {
+      ...formData,
+      id: `booking_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      tourTitle,
+      bookingDate: new Date().toISOString(),
+      status: 'pending' as const
+    };
+
+    // Get existing bookings from localStorage
+    const existingBookings = JSON.parse(localStorage.getItem('tourBookings') || '[]');
+    const updatedBookings = [...existingBookings, bookingData];
+    localStorage.setItem('tourBookings', JSON.stringify(updatedBookings));
+
     onSubmit(formData);
+    setFormData({
+      fullName: '',
+      email: '',
+      phone: '',
+      participants: 1,
+      specialRequests: '',
+    });
   };
 
   return (
