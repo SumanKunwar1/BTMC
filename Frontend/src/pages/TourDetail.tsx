@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Clock, MapPin, CheckCircle, Calendar } from 'lucide-react';
+import { Clock, MapPin, CheckCircle, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 import { tours } from '../data/tours';
 import BookingForm from '../components/tours/BookingForm';
 import TourCard from '../components/tours/TourCard';
@@ -11,6 +11,7 @@ const TourDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [expandedDays, setExpandedDays] = useState<number[]>([]);
 
   const tour = tours.find((t) => t.id === id);
   const relatedTours = tours.filter((t) => t.id !== id).slice(0, 3);
@@ -34,6 +35,16 @@ const TourDetail = () => {
     setShowThankYou(true);
     setTimeout(() => setShowThankYou(false), 3000);
   };
+
+  const toggleDay = (day: number) => {
+    setExpandedDays(prev =>
+      prev.includes(day)
+        ? prev.filter(d => d !== day)
+        : [...prev, day]
+    );
+  };
+
+  const isDayExpanded = (day: number) => expandedDays.includes(day);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -119,13 +130,43 @@ const TourDetail = () => {
                 {tour.itinerary.map((item) => (
                   <div
                     key={item.day}
-                    className="flex items-start space-x-4 bg-white p-4 rounded-lg shadow-sm"
+                    className="bg-white p-4 rounded-lg shadow-sm border border-gray-200"
                   >
-                    <Calendar className="w-5 h-5 text-red-600 mt-1" />
-                    <div>
-                      <h3 className="font-semibold">Day {item.day}</h3>
-                      <p className="text-gray-700">{item.description}</p>
-                    </div>
+                    <button
+                      onClick={() => toggleDay(item.day)}
+                      className="flex items-center justify-between w-full text-left"
+                    >
+                      <div className="flex items-start space-x-4">
+                        <Calendar className="w-5 h-5 text-red-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold">Day {item.day}</h3>
+                          {!isDayExpanded(item.day) && (
+                            <p className="text-gray-600 text-sm mt-1 line-clamp-1">
+                              {item.description.substring(0, 100)}...
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      {isDayExpanded(item.day) ? (
+                        <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                      )}
+                    </button>
+                    
+                    {isDayExpanded(item.day) && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-4 pl-9"
+                      >
+                        <p className="text-gray-700 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </motion.div>
+                    )}
                   </div>
                 ))}
               </div>
