@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import TourCard from '../components/tours/TourCard';
 import { tours } from '../data/tours';
