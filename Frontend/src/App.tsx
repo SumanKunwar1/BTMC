@@ -26,12 +26,11 @@ import Login from './pages/admin/AdminLogin';
 import Pages from './pages/admin/AdminPages';
 import Courses from './pages/admin/AdminCourses';
 import Dashboard from './pages/admin/AdminDashboard';
-import Donations from './pages/admin/AdminDonations';
+import AdminSupportUser from './pages/admin/AdminDonations';
 import AdminEvents from './pages/admin/AdminEvents';
 import Settings from './pages/admin/AdminSettings';
 import AdminTours from './pages/admin/AdminTours';
 import Users from './pages/admin/AdminUsers';
-import AdminSupportUser from './pages/admin/AdminSupportUser';
 import AdminTourUsers from './pages/admin/AdminTourUsers';
 
 // Authentication context
@@ -197,13 +196,6 @@ function App() {
                 </ProtectedRoute>
               } 
             />
-            <Route 
-            path="/admin/support-users"
-            element={<ProtectedRoute>
-              <AdminSupportUser />
-            </ProtectedRoute>
-            }
-            />
 
             <Route
               path="/admin/tour/users"
@@ -216,7 +208,7 @@ function App() {
               path="/admin/donations" 
               element={
                 <ProtectedRoute>
-                  <Donations />
+                  <AdminSupportUser />
                 </ProtectedRoute>
               } 
             />

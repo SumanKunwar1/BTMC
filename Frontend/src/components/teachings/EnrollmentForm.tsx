@@ -40,13 +40,13 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-lg shadow-xl w-full max-w-md"
+            className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[70vh] flex flex-col"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
           >
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
+            <div className="p-6 border-b border-gray-200 flex-shrink-0">
+              <div className="flex justify-between items-center">
                 <h3 className="text-2xl font-semibold">Enroll in Course</h3>
                 <button
                   onClick={onClose}
@@ -55,8 +55,11 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              <p className="text-gray-600 mb-6">{courseTitle}</p>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <p className="text-gray-600 mt-2">{courseTitle}</p>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto">
+              <form onSubmit={handleSubmit} className="p-6 space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name
@@ -105,8 +108,8 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
                   </label>
                   <textarea
                     required
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    rows={3}
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 resize-none"
+                    rows={2}
                     value={formData.address}
                     onChange={(e) =>
                       setFormData({ ...formData, address: e.target.value })
@@ -138,20 +141,22 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({
                     Additional Message (Optional)
                   </label>
                   <textarea
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    rows={3}
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 resize-none"
+                    rows={2}
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors"
-                >
-                  Submit Enrollment
-                </button>
+                <div className="pt-4 flex-shrink-0">
+                  <button
+                    type="submit"
+                    className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    Submit Enrollment
+                  </button>
+                </div>
               </form>
             </div>
           </motion.div>

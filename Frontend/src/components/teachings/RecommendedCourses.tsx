@@ -10,21 +10,39 @@ interface RecommendedCoursesProps {
 
 const RecommendedCourses: React.FC<RecommendedCoursesProps> = ({ currentCourseId }) => {
   const getRandomCourses = (): Course[] => {
-    const allCourses = courseCategories
-      .flatMap((category) => 
-        category.courses.map((course) => ({
-          ...course,
-          categoryId: category.id
-        }))
-      )
-      .filter((course) => course.id !== currentCourseId);
+    // Flatten all courses from all categories
+    const allCourses = courseCategories.flatMap((category) => 
+      category.courses.map((course) => ({
+        ...course,
+        categoryId: category.id
+      }))
+    );
 
-    return allCourses
+    // Filter out the current course and ensure we have courses to recommend
+    const filteredCourses = allCourses.filter((course) => course.id !== currentCourseId);
+
+    // If there are no other courses, return empty array
+    if (filteredCourses.length === 0) {
+      return [];
+    }
+
+    // If there are 3 or fewer courses, return all of them
+    if (filteredCourses.length <= 3) {
+      return filteredCourses;
+    }
+
+    // Otherwise, return 3 random courses
+    return filteredCourses
       .sort(() => Math.random() - 0.5)
       .slice(0, 3);
   };
 
   const recommendedCourses = getRandomCourses();
+
+  // Don't show the section if there are no recommended courses
+  if (recommendedCourses.length === 0) {
+    return null;
+  }
 
   return (
     <motion.section
