@@ -32,6 +32,7 @@ import Settings from './pages/admin/AdminSettings';
 import AdminTours from './pages/admin/AdminTours';
 import Users from './pages/admin/AdminUsers';
 import AdminTourUsers from './pages/admin/AdminTourUsers';
+import AdminEnrollments from './pages/admin/AdminEnrollments';
 
 // Authentication context
 const AuthContext = React.createContext<{
@@ -188,6 +189,16 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+
+            <Route 
+              path="/admin/enrollments" 
+              element={
+                <ProtectedRoute>
+                  <AdminEnrollments />
+                </ProtectedRoute>
+              } 
+            />
+            
             <Route 
               path="/admin/tours" 
               element={
