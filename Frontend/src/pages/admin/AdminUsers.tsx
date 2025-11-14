@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Search, Mail, Phone } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import UserTable from '../../components/admin/users/UserTable';
 import UserFilters from '../../components/admin/users/UserFilters';

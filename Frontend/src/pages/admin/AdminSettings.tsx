@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Settings as SettingsIcon, Globe, Bell, Shield, Mail } from 'lucide-react';
+import { Settings as Globe, Bell, Shield, Mail } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 
 const Settings = () => {

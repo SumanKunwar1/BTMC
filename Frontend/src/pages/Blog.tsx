@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Tag } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blog';
 
