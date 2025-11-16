@@ -50,8 +50,6 @@ const Dashboard = () => {
         const enrollmentsData = JSON.parse(localStorage.getItem('tourBookings') || '[]');
         const courseEnrollmentsData = JSON.parse(localStorage.getItem('courseEnrollments') || '[]');
         const eventsData = JSON.parse(localStorage.getItem('events') || '[]');
-        const coursesData = JSON.parse(localStorage.getItem('courses') || '[]');
-        const toursData = JSON.parse(localStorage.getItem('tours') || '[]');
         const supportData = JSON.parse(localStorage.getItem('supportSubmissions') || '[]');
 
         // Calculate total students (unique users across all systems)
