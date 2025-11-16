@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Users, 
@@ -23,12 +23,26 @@ const navigation = [
   { name: 'Tours', href: '/admin/tours', icon: Map },
   { name: 'Donations', href: '/admin/donations', icon: Heart },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
-  {name: 'Tour-Users', href:'/admin/tour/users', icon: Users},
-  { name: 'Enrollments', href:'/admin/enrollments', icon: Users}
+  { name: 'Tour-Users', href: '/admin/tour/users', icon: Users },
+  { name: 'Enrollments', href: '/admin/enrollments', icon: Users }
 ];
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // 🔥 Logout handler
+  const handleLogout = () => {
+    // Remove token (or anything else stored)
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin");
+
+    // Redirect to homepage
+    navigate("/");
+
+    // Optional: show a toast if you use react-toastify
+    // toast.success("Logged out successfully");
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -61,8 +75,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             })}
           </nav>
 
+          {/* 🔥 Logout Button */}
           <div className="p-4 border-t">
-            <button className="flex items-center w-full px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+            <button 
+              onClick={handleLogout}
+              className="flex items-center w-full px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+            >
               <LogOut className="w-5 h-5 mr-3" />
               Logout
             </button>
