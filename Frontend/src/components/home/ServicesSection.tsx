@@ -1,108 +1,128 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, Map, Heart, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const services = [
   {
-    icon: BookOpen,
+    icon: '📖',
     title: 'Buddhist Teachings & Meditation',
-    description: 'Comprehensive courses for monks, nuns, and lay practitioners.',
-    link: '/teachings'
+    description: 'Comprehensive courses in Buddhist philosophy and meditation for monks, nuns, and lay practitioners — from beginner to advanced levels.',
+    link: '/teachings',
   },
   {
-    icon: Map,
+    icon: '🗺️',
     title: 'Pilgrimage Tours',
-    description: 'Explore sacred sites in Nepal, India, and beyond with expert guidance.',
-    link: '/pilgrimage'
+    description: 'Explore sacred sites in Nepal, India, Sri Lanka, and beyond — guided by experienced Buddhist masters with full logistics support.',
+    link: '/events',
   },
   {
-    icon: Heart,
-    title: 'Rituals and Ceremonies',
-    description: 'Support for birth, marriage, and funeral ceremonies with Buddhist traditions.',
-    link: '/services'
+    icon: '🕯️',
+    title: 'Rituals & Ceremonies',
+    description: 'Buddhist ritual support for birth, marriage, healing, and funeral ceremonies — performed with authentic Dharma tradition.',
+    link: '/services',
   },
   {
-    icon: Users,
+    icon: '🤝',
     title: 'Community Services',
-    description: 'Relief distribution, social services, and spiritual counseling.',
-    link: '/community'
-  }
+    description: 'Disaster relief distribution, social welfare programs, and spiritual counseling — grounded in compassion for all beings.',
+    link: '/community',
+  },
 ];
 
 const ServicesSection = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
-
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.h2
-          className="text-3xl font-bold text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
+    <section style={{
+      background: 'linear-gradient(180deg, rgba(10,5,5,1) 0%, rgba(15,5,5,1) 100%)',
+      padding: '100px 24px',
+      position: 'relative',
+    }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Crimson+Text:wght@400;600&display=swap');
+        .svc-card {
+          background: linear-gradient(135deg, rgba(20,5,5,0.95) 0%, rgba(28,8,8,0.9) 100%);
+          border: 1px solid rgba(185,28,28,0.18);
+          border-radius: 4px;
+          padding: 32px 26px;
+          transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+          display: flex; flex-direction: column; gap: 14px;
+          position: relative; overflow: hidden;
+        }
+        .svc-card::after {
+          content: '';
+          position: absolute; bottom: 0; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #dc2626, transparent);
+          transform: scaleX(0);
+          transition: transform 0.4s ease;
+        }
+        .svc-card:hover {
+          border-color: rgba(220,38,38,0.5);
+          transform: translateY(-5px);
+          box-shadow: 0 20px 50px rgba(185,28,28,0.18), 0 0 30px rgba(185,28,28,0.06);
+        }
+        .svc-card:hover::after { transform: scaleX(1); }
+        .svc-link {
+          display: inline-flex; align-items: center; gap: 8px;
+          font-family: 'Cinzel', serif; font-size: 9px;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #dc2626; text-decoration: none;
+          padding-bottom: 3px;
+          border-bottom: 1px solid rgba(220,38,38,0.25);
+          transition: all 0.25s ease; margin-top: auto;
+        }
+        .svc-link:hover { color: #f87171; border-bottom-color: #f87171; gap: 12px; }
+        .section-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(185,28,28,0.5), rgba(245,166,35,0.3), rgba(185,28,28,0.5), transparent); }
+      `}</style>
+
+      <div className="section-line" style={{ position: 'absolute', top: 0, left: 0, right: 0 }} />
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.7 }}
+          style={{ textAlign: 'center', marginBottom: '60px' }}
         >
-          Our Services
-        </motion.h2>
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
-        >
-          {services.map((service) => {
-            const IconComponent = service.icon;
-            return (
-              <motion.div
-                key={service.title}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                variants={itemVariants}
-              >
-                <IconComponent className="w-12 h-12 text-red-600 mb-4" />
-                <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link
-                  to={service.link}
-                  className="text-red-600 hover:text-red-700 font-medium inline-flex items-center group"
-                >
-                  Learn More
-                  <motion.svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </motion.svg>
-                </Link>
-              </motion.div>
-            );
-          })}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', marginBottom: '16px' }}>
+            <div style={{ height: '1px', width: '50px', background: 'linear-gradient(90deg, transparent, rgba(185,28,28,0.6))' }} />
+            <span style={{ fontSize: '18px' }}>☸</span>
+            <div style={{ height: '1px', width: '50px', background: 'linear-gradient(90deg, rgba(185,28,28,0.6), transparent)' }} />
+          </div>
+          <p style={{ fontFamily: "'Cinzel', serif", fontSize: '10px', letterSpacing: '0.4em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '12px' }}>
+            How We Serve
+          </p>
+          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(24px, 3.5vw, 42px)', fontWeight: 700, color: '#f5f0eb' }}>
+            Our Services
+          </h2>
         </motion.div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '22px' }}>
+          {services.map((svc, i) => (
+            <motion.div
+              key={svc.title}
+              className="svc-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: i * 0.12, duration: 0.6 }}
+            >
+              <div style={{ fontSize: '36px' }}>{svc.icon}</div>
+              <div style={{ width: '30px', height: '1px', background: 'linear-gradient(90deg, #dc2626, transparent)' }} />
+              <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: '13px', fontWeight: 700, color: '#f5f0eb', lineHeight: 1.3, letterSpacing: '0.04em' }}>
+                {svc.title}
+              </h3>
+              <p style={{ fontFamily: "'Crimson Text', serif", fontSize: '16px', color: 'rgba(245,240,235,0.55)', lineHeight: 1.75, flex: 1 }}>
+                {svc.description}
+              </p>
+              <Link to={svc.link} className="svc-link">
+                Learn More →
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
+      <div className="section-line" style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }} />
     </section>
   );
 };

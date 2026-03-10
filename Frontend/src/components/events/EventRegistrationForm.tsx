@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, ChevronDown } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import { Event } from '../../types/event';
 
 export interface EventRegistrationData {
