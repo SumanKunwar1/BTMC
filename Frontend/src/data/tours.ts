@@ -37,7 +37,7 @@ export const tours: Tour[] = [
     id: 'tibet-mansarovar',
     title: '15-days Tibet Mansarovar Tour',
     days: 15,
-    image: 'https://boundlessadventure.com/wp-content/uploads/2023/07/Kailash-ji-Tour.jpg',
+    image: 'https://v.greattibettour.com/photos/2021/08/lake-manasarovar-04-43752.webp',
     description: 'A spiritual pilgrimage to Mount Kailash and Lake Mansarovar, combining meditation, teaching, and sacred site visits.',
     highlights: [
       'Mount Kailash Parikrama',
