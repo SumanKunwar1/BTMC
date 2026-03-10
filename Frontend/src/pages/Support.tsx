@@ -5,7 +5,7 @@ import SupportWays from '../components/support/SupportWays';
 
 const Support = () => {
   return (
-    <div className="min-h-screen">
+    <div style={{ background: '#0a0505', minHeight: '100vh' }}>
       <SupportHero />
       <DonationSection />
       <ImpactSection />
