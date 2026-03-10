@@ -34,6 +34,8 @@ import Users from './pages/admin/AdminUsers';
 import AdminTourUsers from './pages/admin/AdminTourUsers';
 import AdminEnrollments from './pages/admin/AdminEnrollments';
 
+import ScrollToTop from './components/ScrollToTop';
+
 // Authentication context
 const AuthContext = React.createContext<{
   isAuthenticated: boolean;
@@ -117,6 +119,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <AppLayout>
           <Routes>
             {/* Public Routes */}

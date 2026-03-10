@@ -304,12 +304,18 @@ const ContactPage = () => {
           }}
         >
           <iframe
-            src="https://www.google.com/maps/place/DHARMA+TELEVISION+HD/@27.7189136,85.372373,17z/data=!3m1!4b1!4m6!3m5!1s0x39eb1b48aba75f4f:0xf0ea8f4c2b765e31!8m2!3d27.7189136!4d85.3749479!16s%2Fg%2F11q45mpkns?entry=ttu&g_ep=EgoyMDI2MDMwOC4wIKXMDSoASAFQAw%3D%3D"
-            width="100%" height="100%"
-            style={{ border: 0, display: 'block', filter: 'invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85)' }}
-            allowFullScreen loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.407437805686!2d85.372373!3d27.7189136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1b48aba75f4f%3A0xf0ea8f4c2b765e31!2sDharma%20Television%20HD!5e0!3m2!1sen!2snp!4v1719999999999"
+  width="100%"
+  height="100%"
+  style={{
+    border: 0,
+    display: "block",
+    filter: "invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85)"
+  }}
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+  allowFullScreen
+/>
         </motion.div>
       </section>
     </div>
