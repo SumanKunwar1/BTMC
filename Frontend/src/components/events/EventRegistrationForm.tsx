@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check } from 'lucide-react';
+import { X, Check, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { Event } from '../../types/event';
+
+// ─────────────────────────────────────────────────────────────────────
+// EMAILJS KEYS — replace all 3 with your actual values
+// Dashboard: https://www.emailjs.com
+// ─────────────────────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_e5kyezy';   // e.g. 'service_wklc209'
+const EMAILJS_TEMPLATE_ID = 'template_0na8fw3';  // from EmailJS template page
+const EMAILJS_PUBLIC_KEY  = 'ar7BuT-S-2ysVDrIB';   // Account → API Keys
 
 export interface EventRegistrationData {
   fullName: string;
@@ -61,13 +70,48 @@ export default function EventRegistrationForm({
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const selectedTicket = event.ticketTypes.find((t) => t.type === formData.ticketType);
   const totalPrice = selectedTicket ? selectedTicket.price * formData.quantity : 0;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    setIsSending(true);
+    setSendError(null);
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          // Personal Info
+          name:                 formData.fullName,
+          email:                formData.email,
+          phone:                formData.phone,
+          country:              formData.country,
+          // Event Info
+          event_name:           event.title,
+          event_date:           event.date,
+          event_venue:          event.venue,
+          // Booking
+          ticket_type:          formData.ticketType,
+          quantity:             String(formData.quantity),
+          total_price:          totalPrice === 0 ? 'Free' : 'Rs. ' + totalPrice,
+          // Extra
+          special_requirements: formData.specialRequirements || 'None',
+          time:                 new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' }),
+        },
+        EMAILJS_PUBLIC_KEY,
+      );
+      onSubmit(formData);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setSendError('Failed to send registration. Please try again or contact us directly.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const focusedBorder = 'rgba(220,38,38,0.7)';
@@ -350,9 +394,23 @@ export default function EventRegistrationForm({
                     )}
                   </div>
 
+                  {sendError && (
+                    <div style={{
+                      padding: '12px 16px',
+                      background: 'rgba(185,28,28,0.12)',
+                      border: '1px solid rgba(185,28,28,0.4)',
+                      borderRadius: '3px',
+                      fontFamily: "'Crimson Text', serif",
+                      fontSize: '15px', color: '#f87171', lineHeight: 1.5,
+                    }}>
+                      {sendError}
+                    </div>
+                  )}
+
                   <div style={{ display: 'flex', gap: '12px' }}>
                     <button
                       type="button"
+                      disabled={isSending}
                       onClick={() => setStep(1)}
                       style={{
                         padding: '14px 20px',
@@ -370,19 +428,28 @@ export default function EventRegistrationForm({
                     </button>
                     <button
                       type="submit"
+                      disabled={isSending}
                       style={{
                         flex: 1, padding: '14px',
-                        background: 'linear-gradient(135deg, #991b1b, #dc2626)',
+                        background: isSending ? 'rgba(120,10,10,0.6)' : 'linear-gradient(135deg, #991b1b, #dc2626)',
                         color: '#fff', border: 'none', borderRadius: '3px',
                         fontFamily: "'Cinzel', serif", fontSize: '11px',
                         letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700,
-                        cursor: 'pointer', boxShadow: '0 6px 20px rgba(185,28,28,0.35)',
+                        cursor: isSending ? 'not-allowed' : 'pointer',
+                        boxShadow: isSending ? 'none' : '0 6px 20px rgba(185,28,28,0.35)',
                         transition: 'all 0.3s ease',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
                       }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #7f1d1d, #b91c1c)'; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #991b1b, #dc2626)'; }}
+                      onMouseEnter={(e) => { if (!isSending) (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #7f1d1d, #b91c1c)'; }}
+                      onMouseLeave={(e) => { if (!isSending) (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #991b1b, #dc2626)'; }}
                     >
-                      Complete Registration
+                      {isSending ? (
+                        <>
+                          <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />
+                          Sending...
+                          <style>{'@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }'}</style>
+                        </>
+                      ) : 'Complete Registration'}
                     </button>
                   </div>
                 </motion.div>

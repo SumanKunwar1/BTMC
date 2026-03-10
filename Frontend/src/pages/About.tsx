@@ -29,7 +29,7 @@ const institutions = [
     logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdYysfqrvalS-TerkBDcijeup1P4ez5WSPkg&s",
     fallbackIcon: "📡",
     color: "#7f1d1d",
-    website: "#",
+    website: "https://dharmatelevision.tv/",
   },
   {
     abbr: "NEA",
@@ -47,7 +47,7 @@ const institutions = [
     logo: "https://rdcck.org/img/BTMC%20FINAL%20LOGO%20.png",
     fallbackIcon: "🙏",
     color: "#dc2626",
-    website: "#",
+    website: "https://btmcfoundation.org/",
   },
   {
     abbr: "Pure Land Tours",
@@ -56,7 +56,7 @@ const institutions = [
     logo: "https://catalog.wlimg.com/4/1834597/other-images/54852.jpg",
     fallbackIcon: "🗺️",
     color: "#991b1b",
-    website: "#",
+    website: "https://www.purelandtravels.com.np/",
   },
   {
     abbr: "Padma Sambhava Tri",
@@ -65,7 +65,7 @@ const institutions = [
     logo: "https://res.cloudinary.com/dihev9qxc/image/upload/v1768991877/453207561_122102729312441160_4787222294410407220_n-removebg-preview_voy795.png",
     fallbackIcon: "☸️",
     color: "#7f1d1d",
-    website: "#",
+    website: "https://padmasambhavatrip.com/",
   },
 ];
 

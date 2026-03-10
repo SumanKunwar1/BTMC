@@ -137,7 +137,7 @@ const Navbar = () => {
         .btmc-logo-tagline {
           font-family: 'Cormorant Garamond', serif;
           font-size: 10px;
-          font-weight: 400;
+          font-weight: 900;
           letter-spacing: 0.15em;
           color: rgba(185,28,28,0.55);
           font-style: italic;
