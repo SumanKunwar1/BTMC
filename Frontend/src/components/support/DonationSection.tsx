@@ -84,15 +84,46 @@ const DonationSection = () => {
                 ) : (
                   <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'14px' }}>
                     {/* Bank details */}
-                    <div style={{ background:'rgba(185,28,28,0.04)', border:'1px solid rgba(185,28,28,0.12)', borderRadius:'4px', padding:'14px' }}>
-                      <p style={{ fontFamily:"'Cinzel',serif", fontSize:'9px', letterSpacing:'0.25em', color:'#b91c1c', textTransform:'uppercase', marginBottom:'10px' }}>Bank Transfer Details</p>
-                      {[['Account Name','B.T.M.C. Foundation'],['Account No.','0570155982700014'],['Bank','Prabhu Bank (Boudha Branch)']].map(([k,v])=>(
-                        <div key={k} style={{ display:'flex', gap:'8px', marginBottom:'5px' }}>
-                          <span style={{ fontFamily:"'Cinzel',serif", fontSize:'8px', letterSpacing:'0.1em', color:'#a07070', textTransform:'uppercase', minWidth:'90px', paddingTop:'3px' }}>{k}</span>
-                          <span style={{ fontFamily:"'Crimson Text',serif", fontSize:'16px', color:'#5a3030' }}>{v}</span>
+                    <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
+                      {/* Nepal Bank */}
+                      <div style={{ background:'linear-gradient(135deg,rgba(185,28,28,0.04),rgba(185,28,28,0.02))', border:'1px solid rgba(185,28,28,0.14)', borderRadius:'6px', overflow:'hidden' }}>
+                        <div style={{ padding:'10px 14px', background:'rgba(185,28,28,0.06)', borderBottom:'1px solid rgba(185,28,28,0.1)', display:'flex', alignItems:'center', gap:'8px' }}>
+                          <span style={{ fontSize:'16px' }}>🇳🇵</span>
+                          <div>
+                            <p style={{ fontFamily:"'Cinzel',serif", fontSize:'8px', letterSpacing:'0.25em', color:'#b91c1c', textTransform:'uppercase', marginBottom:'1px' }}>Nepal — Bank Transfer</p>
+                            <p style={{ fontFamily:"'Crimson Text',serif", fontSize:'13px', color:'#a07070', fontStyle:'italic' }}>Prabhu Bank · Boudha Branch</p>
+                          </div>
                         </div>
-                      ))}
-                      <p style={{ fontFamily:"'Crimson Text',serif", fontSize:'13px', color:'#a07070', fontStyle:'italic', marginTop:'8px' }}>Transfer first, then fill this form.</p>
+                        <div style={{ padding:'12px 14px', display:'flex', flexDirection:'column', gap:'6px' }}>
+                          {[['Account Name','B.T.M.C. Foundation'],['Account No.','0570155982700014'],['Bank','Prabhu Bank (Boudha Branch)']].map(([k,v])=>(
+                            <div key={k} style={{ display:'flex', gap:'8px', alignItems:'baseline' }}>
+                              <span style={{ fontFamily:"'Cinzel',serif", fontSize:'7.5px', letterSpacing:'0.12em', color:'#a07070', textTransform:'uppercase', minWidth:'88px', flexShrink:0 }}>{k}</span>
+                              <span style={{ fontFamily:"'Crimson Text',serif", fontSize:'15px', color:'#5a3030', fontWeight:600 }}>{v}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* India Bank */}
+                      <div style={{ background:'linear-gradient(135deg,rgba(19,96,179,0.04),rgba(19,96,179,0.02))', border:'1px solid rgba(19,96,179,0.14)', borderRadius:'6px', overflow:'hidden' }}>
+                        <div style={{ padding:'10px 14px', background:'rgba(19,96,179,0.05)', borderBottom:'1px solid rgba(19,96,179,0.1)', display:'flex', alignItems:'center', gap:'8px' }}>
+                          <span style={{ fontSize:'16px' }}>🇮🇳</span>
+                          <div>
+                            <p style={{ fontFamily:"'Cinzel',serif", fontSize:'8px', letterSpacing:'0.25em', color:'#1360b3', textTransform:'uppercase', marginBottom:'1px' }}>India — Bank Transfer</p>
+                            <p style={{ fontFamily:"'Crimson Text',serif", fontSize:'13px', color:'#a07070', fontStyle:'italic' }}>Bank of India · Salugara, Siliguri</p>
+                          </div>
+                        </div>
+                        <div style={{ padding:'12px 14px', display:'flex', flexDirection:'column', gap:'6px' }}>
+                          {[['Account Name','BTMC Foundation'],['Account No.','50782011000314'],['IFSC Code','BKID0005078'],['Branch','Salugara, Siliguri'],['Address','H No.737, Gr. Fl., BSF Road, Ward No.42, PO Salugara, Jalpaiguri, West Bengal – 734008']].map(([k,v])=>(
+                            <div key={k} style={{ display:'flex', gap:'8px', alignItems:'baseline' }}>
+                              <span style={{ fontFamily:"'Cinzel',serif", fontSize:'7.5px', letterSpacing:'0.12em', color:'#a07070', textTransform:'uppercase', minWidth:'88px', flexShrink:0 }}>{k}</span>
+                              <span style={{ fontFamily:"'Crimson Text',serif", fontSize:'15px', color:'#5a3030', fontWeight:600, lineHeight:1.4 }}>{v}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <p style={{ fontFamily:"'Crimson Text',serif", fontSize:'13px', color:'#a07070', fontStyle:'italic', textAlign:'center' }}>Transfer first, then fill the form below.</p>
                     </div>
 
                     <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'12px' }}>
