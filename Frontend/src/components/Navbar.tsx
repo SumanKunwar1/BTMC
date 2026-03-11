@@ -39,6 +39,13 @@ const Navbar = () => {
           box-shadow:0 4px 14px rgba(185,28,28,0.25); transition:all 0.3s;
         }
         .sup-btn:hover { box-shadow:0 6px 22px rgba(185,28,28,0.4); transform:translateY(-1px); background:linear-gradient(135deg,#7f1d1d,#991b1b); }
+        .reg-btn {
+          font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.18em;
+          text-transform:uppercase; color:#b91c1c; text-decoration:none;
+          padding:9px 20px; border-radius:3px;
+          border:1px solid rgba(185,28,28,0.4); background:transparent; transition:all 0.3s;
+        }
+        .reg-btn:hover { background:rgba(185,28,28,0.06); border-color:#b91c1c; transform:translateY(-1px); }
         .mob-lnk {
           font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.18em;
           text-transform:uppercase; color:#4a1818; text-decoration:none; display:block;
@@ -77,6 +84,7 @@ const Navbar = () => {
               ))}
             </div>
             <div className="desk-nav" style={{ width:'1px', height:'20px', background:'rgba(185,28,28,0.15)' }} />
+            <Link to="/events" className="reg-btn desk-nav">Register</Link>
             <Link to="/support" className="sup-btn desk-nav">Support Us</Link>
 
             {/* Hamburger */}
@@ -93,6 +101,7 @@ const Navbar = () => {
               <Link key={item.path} to={item.path} className={`mob-lnk${location.pathname===item.path?' active':''}`}>{item.label}</Link>
             ))}
             <div style={{ marginTop:'12px' }}>
+              <Link to="/events" className="reg-btn" style={{ display:'block', textAlign:'center', marginBottom:'8px' }}>Register</Link>
               <Link to="/support" className="sup-btn" style={{ display:'block', textAlign:'center' }}>Support Us</Link>
             </div>
           </div>
