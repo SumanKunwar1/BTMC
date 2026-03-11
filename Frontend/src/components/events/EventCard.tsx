@@ -1,128 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { Event } from '../../types/event';
 
-interface EventCardProps {
-  event: Event;
-}
+interface EventCardProps { event: Event; }
 
-const categoryColors: Record<string, string> = {
-  'Retreat': '#16a34a',
-  'International Retreat': '#dc2626',
-  'World Peace Prayers': '#7c3aed',
-};
+const catColors: Record<string,string> = { 'Retreat':'#16a34a','International Retreat':'#b91c1c','World Peace Prayers':'#7c3aed' };
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false }}
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.35 }}
-      style={{
-        background: 'linear-gradient(160deg, rgba(20,5,5,0.95) 0%, rgba(28,8,8,0.9) 100%)',
-        border: '1px solid rgba(185,28,28,0.18)',
-        borderRadius: '6px',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-        transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-        cursor: 'pointer',
-      }}
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Crimson+Text:wght@400;600&display=swap');
-        .ec-img { transition: transform 0.5s ease; }
-        .ec-wrap:hover .ec-img { transform: scale(1.05); }
-        .ec-learn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #dc2626; text-decoration: none; padding: 6px 0; border-bottom: 1px solid rgba(220,38,38,0.25); transition: all 0.2s ease; }
-        .ec-learn:hover { color: #f87171; gap: 10px; border-bottom-color: #f87171; }
-      `}</style>
-
-      <div className="ec-wrap" style={{ overflow: 'hidden', position: 'relative' }}>
-        <img
-          src={event.image}
-          alt={event.title}
-          className="ec-img"
-          style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }}
+const EventCard: React.FC<EventCardProps> = ({ event }) => (
+  <div style={{ background:'#fff', border:'1px solid rgba(185,28,28,0.1)', borderRadius:'6px', overflow:'hidden', display:'flex', flexDirection:'column', boxShadow:'0 2px 12px rgba(185,28,28,0.05)', transition:'all 0.4s cubic-bezier(0.23,1,0.32,1)' }}
+    onMouseEnter={e=>{ const d=e.currentTarget as HTMLDivElement; d.style.transform='translateY(-6px)'; d.style.borderColor='rgba(185,28,28,0.3)'; d.style.boxShadow='0 16px 40px rgba(185,28,28,0.12)'; }}
+    onMouseLeave={e=>{ const d=e.currentTarget as HTMLDivElement; d.style.transform=''; d.style.borderColor='rgba(185,28,28,0.1)'; d.style.boxShadow='0 2px 12px rgba(185,28,28,0.05)'; }}
+  >
+    <Link to={`/events/${event.id}`} style={{ textDecoration:'none', display:'flex', flexDirection:'column', flex:1 }}>
+      <div style={{ overflow:'hidden', position:'relative', height:'200px' }}>
+        <img src={event.image} alt={event.title} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block', transition:'transform 0.6s ease' }}
+          onMouseEnter={e=>(e.currentTarget as HTMLImageElement).style.transform='scale(1.05)'}
+          onMouseLeave={e=>(e.currentTarget as HTMLImageElement).style.transform='scale(1)'}
         />
-        <div style={{
-          position: 'absolute', top: '12px', left: '12px',
-          display: 'flex', gap: '6px', flexWrap: 'wrap',
-        }}>
-          <span style={{
-            fontFamily: "'Cinzel', serif", fontSize: '8px', letterSpacing: '0.15em',
-            textTransform: 'uppercase', padding: '3px 9px', borderRadius: '2px',
-            background: categoryColors[event.category] || '#dc2626', color: '#fff', fontWeight: 600,
-          }}>
-            {event.category}
-          </span>
-          {event.isFree && (
-            <span style={{
-              fontFamily: "'Cinzel', serif", fontSize: '8px', letterSpacing: '0.15em',
-              textTransform: 'uppercase', padding: '3px 9px', borderRadius: '2px',
-              background: '#15803d', color: '#fff', fontWeight: 600,
-            }}>
-              Free
-            </span>
-          )}
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top,rgba(26,8,8,0.5) 0%,transparent 55%)' }} />
+        <div style={{ position:'absolute', top:'12px', left:'12px', display:'flex', gap:'6px', flexWrap:'wrap' }}>
+          <span style={{ fontFamily:"'Cinzel',serif", fontSize:'8px', letterSpacing:'0.12em', background:catColors[event.category]||'#b91c1c', color:'#fff', padding:'3px 9px', borderRadius:'2px', textTransform:'uppercase' }}>{event.category}</span>
+          {event.isFree && <span style={{ fontFamily:"'Cinzel',serif", fontSize:'8px', background:'#15803d', color:'#fff', padding:'3px 9px', borderRadius:'2px', textTransform:'uppercase' }}>Free</span>}
         </div>
-        {event.tag && (
-          <div style={{
-            position: 'absolute', bottom: '12px', right: '12px',
-            fontFamily: "'Cinzel', serif", fontSize: '8px', letterSpacing: '0.13em',
-            background: 'rgba(10,5,5,0.85)', border: `1px solid ${event.tagColor || '#dc2626'}`,
-            color: event.tagColor || '#dc2626', padding: '3px 9px', borderRadius: '2px',
-            textTransform: 'uppercase', backdropFilter: 'blur(4px)',
-          }}>
-            {event.tag}
-          </div>
-        )}
       </div>
-
-      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-        <h3 style={{
-          fontFamily: "'Cinzel', serif",
-          fontSize: 'clamp(13px, 1.4vw, 16px)',
-          fontWeight: 700, color: '#f5f0eb', lineHeight: 1.3,
-        }}>
-          {event.title}
-        </h3>
-
-        <p style={{
-          fontFamily: "'Crimson Text', serif",
-          fontSize: '15px', color: 'rgba(245,240,235,0.5)',
-          lineHeight: 1.6, flex: 1,
-        }}>
-          {event.shortDescription.length > 110 ? event.shortDescription.slice(0, 110) + '...' : event.shortDescription}
-        </p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '4px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-            <Calendar size={12} color="#dc2626" />
-            <span style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.1em', color: 'rgba(245,240,235,0.4)' }}>
-              {event.date}
-            </span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-            <MapPin size={12} color="#dc2626" />
-            <span style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.1em', color: 'rgba(245,240,235,0.4)' }}>
-              {event.venue}
-            </span>
-          </div>
+      <div style={{ padding:'18px', display:'flex', flexDirection:'column', gap:'10px', flex:1 }}>
+        <h3 style={{ fontFamily:"'Cinzel',serif", fontSize:'13px', fontWeight:700, color:'#1a0808', lineHeight:1.35 }}>{event.title}</h3>
+        <p style={{ fontFamily:"'Crimson Text',serif", fontSize:'15px', color:'#6b3333', lineHeight:1.65, flex:1 }}>{event.shortDescription?.slice(0,90)}…</p>
+        <div style={{ display:'flex', flexDirection:'column', gap:'5px' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:'7px' }}><Calendar size={11} color="#b91c1c"/><span style={{ fontFamily:"'Cinzel',serif", fontSize:'9px', letterSpacing:'0.1em', color:'#a07070' }}>{event.date}</span></div>
+          <div style={{ display:'flex', alignItems:'center', gap:'7px' }}><MapPin size={11} color="#b91c1c"/><span style={{ fontFamily:"'Cinzel',serif", fontSize:'9px', letterSpacing:'0.1em', color:'#a07070' }}>{event.venue}</span></div>
         </div>
-
-        <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(185,28,28,0.3), transparent)', margin: '6px 0' }} />
-
-        <Link to={`/events/${event.id}`} className="ec-learn">
-          View Details <ArrowRight size={11} />
-        </Link>
+        <div style={{ height:'1px', background:'linear-gradient(90deg,transparent,rgba(185,28,28,0.12),transparent)' }} />
+        <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', fontFamily:"'Cinzel',serif", fontSize:'9.5px', letterSpacing:'0.2em', textTransform:'uppercase', color:'#b91c1c' }}>
+          View Details <ArrowRight size={11}/>
+        </div>
       </div>
-    </motion.div>
-  );
-};
+    </Link>
+  </div>
+);
 
 export default EventCard;

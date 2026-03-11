@@ -150,8 +150,8 @@ export default function AboutPage() {
       ref={containerRef}
       style={{
         fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-        backgroundColor: "#0a0505",
-        color: "#f5f0eb",
+        backgroundColor: "#fdf8f3",
+        color: "#1a0808",
         overflowX: "hidden",
         position: "relative",
       }}
@@ -163,13 +163,13 @@ export default function AboutPage() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0505; }
-        ::-webkit-scrollbar-thumb { background: #b91c1c; border-radius: 2px; }
+        ::-webkit-scrollbar-track { background: #fdf8f3; }
+        ::-webkit-scrollbar-thumb { background: rgba(185,28,28,0.4); border-radius: 2px; }
 
         .institution-card {
           transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-          border: 1px solid rgba(185,28,28,0.2);
-          background: linear-gradient(135deg, rgba(20,5,5,0.9) 0%, rgba(30,10,10,0.8) 100%);
+          border: 1px solid rgba(185,28,28,0.12);
+          background: linear-gradient(135deg, #ffffff 0%, #fdf8f3 100%);
           cursor: pointer;
         }
         .institution-card:hover {
@@ -179,12 +179,12 @@ export default function AboutPage() {
         }
         .institution-card.active {
           border-color: #dc2626;
-          background: linear-gradient(135deg, rgba(40,8,8,0.95) 0%, rgba(80,15,15,0.9) 100%);
+          background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
           box-shadow: 0 25px 70px rgba(185,28,28,0.35), 0 0 50px rgba(185,28,28,0.15);
         }
 
         .glow-text {
-          text-shadow: 0 0 40px rgba(220,38,38,0.4), 0 0 80px rgba(220,38,38,0.15);
+          text-shadow: 0 2px 12px rgba(185,28,28,0.15);
         }
 
         .dharma-wheel {
@@ -206,12 +206,12 @@ export default function AboutPage() {
 
         .retreat-pill {
           transition: all 0.3s ease;
-          border: 1px solid rgba(185,28,28,0.3);
+          border: 1px solid rgba(185,28,28,0.15);
         }
         .retreat-pill:hover {
-          background: rgba(185,28,28,0.3);
-          border-color: #dc2626;
-          transform: scale(1.05);
+          background: rgba(185,28,28,0.06);
+          border-color: rgba(185,28,28,0.35);
+          transform: scale(1.02);
         }
 
         .quote-line {
@@ -233,7 +233,7 @@ export default function AboutPage() {
           100% { background-position: 200% center; }
         }
         .shimmer-text {
-          background: linear-gradient(90deg, #f5f0eb 0%, #dc2626 40%, #f5a623 50%, #dc2626 60%, #f5f0eb 100%);
+          background: linear-gradient(90deg, #1a0808 0%, #dc2626 40%, #991b1b 50%, #dc2626 60%, #1a0808 100%);
           background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -244,7 +244,7 @@ export default function AboutPage() {
         .section-divider {
           width: 100%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(185,28,28,0.6), rgba(245,166,35,0.4), rgba(185,28,28,0.6), transparent);
+          background: linear-gradient(90deg, transparent, rgba(185,28,28,0.2), rgba(217,119,6,0.15), rgba(185,28,28,0.2), transparent);
         }
 
         @keyframes pulse-glow {
@@ -263,12 +263,12 @@ export default function AboutPage() {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(120,10,10,0.4) 0%, rgba(10,5,5,1) 70%)",
+          background: "linear-gradient(180deg, rgba(185,28,28,0.07) 0%, rgba(253,248,243,1) 60%)",
         }}
       >
         {/* Noise texture overlay */}
         <div style={{
-          position: "absolute", inset: 0, opacity: 0.04,
+          position: "absolute", inset: 0, opacity: 0.02,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           backgroundSize: "200px",
         }} />
@@ -284,7 +284,7 @@ export default function AboutPage() {
               position: "absolute",
               width: `${ring * 160}px`,
               height: `${ring * 160}px`,
-              border: `1px solid rgba(185,28,28,${0.25 - ring * 0.04})`,
+              border: `1px solid rgba(185,28,28,${0.1 - ring * 0.015})`,
               borderRadius: "50%",
               transform: `rotate(${mandalaAngle * (ring % 2 === 0 ? 1 : -1) * (0.3 + ring * 0.1)}deg)`,
               borderStyle: ring % 2 === 0 ? "dashed" : "solid",
@@ -362,7 +362,7 @@ export default function AboutPage() {
               fontWeight: 900,
               lineHeight: 0.9,
               marginBottom: "32px",
-              color: "#f5f0eb",
+              color: "#1a0808",
               letterSpacing: "-0.02em",
             }}
           >
@@ -378,7 +378,7 @@ export default function AboutPage() {
             style={{
               fontFamily: "'Crimson Text', serif",
               fontSize: "clamp(16px, 2.5vw, 22px)",
-              color: "rgba(245,240,235,0.65)",
+              color: "rgba(26,8,8,0.65)",
               maxWidth: "600px",
               margin: "0 auto 48px",
               lineHeight: 1.7,
@@ -396,7 +396,7 @@ export default function AboutPage() {
             transition={{ delay: 1.5 }}
             style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}
           >
-            <span style={{ fontFamily: "'Cinzel', serif", fontSize: "10px", letterSpacing: "0.3em", color: "rgba(245,240,235,0.35)", textTransform: "uppercase" }}>Scroll to discover</span>
+            <span style={{ fontFamily: "'Cinzel', serif", fontSize: "10px", letterSpacing: "0.3em", color: "rgba(26,8,8,0.35)", textTransform: "uppercase" }}>Scroll to discover</span>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -407,7 +407,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── STATS ────────────────────────────────────────────────────────── */}
-      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, rgba(15,5,5,1) 0%, rgba(25,8,8,1) 100%)", position: "relative" }}>
+      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, rgba(253,248,243,1) 0%, rgba(255,252,248,1) 100%)", position: "relative" }}>
         <div className="section-divider" style={{ position: "absolute", top: 0, left: 0 }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "48px" }}>
           {stats.map((stat, i) => (
@@ -429,7 +429,7 @@ export default function AboutPage() {
               }}>
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div style={{ fontFamily: "'Crimson Text', serif", fontSize: "16px", color: "rgba(245,240,235,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              <div style={{ fontFamily: "'Crimson Text', serif", fontSize: "16px", color: "rgba(26,8,8,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
                 {stat.label}
               </div>
             </motion.div>
@@ -456,7 +456,7 @@ export default function AboutPage() {
                   position: "absolute",
                   width: size, height: size,
                   borderRadius: "50%",
-                  border: `1px solid rgba(185,28,28,${0.18 - i * 0.05})`,
+                  border: `1px solid rgba(185,28,28,${0.1 - i * 0.025})`,
                   borderStyle: i % 2 === 0 ? "solid" : "dashed",
                 }} />
               ))}
@@ -489,7 +489,7 @@ export default function AboutPage() {
                   position: "absolute",
                   bottom: 0, left: 0, right: 0,
                   height: "80px",
-                  background: "linear-gradient(to top, rgba(10,5,5,0.8), transparent)",
+                  background: "linear-gradient(to top, rgba(26,8,8,0.2), transparent)",
                 }} />
               </div>
 
@@ -530,7 +530,7 @@ export default function AboutPage() {
                 fontFamily: "'Cinzel', serif",
                 fontSize: "clamp(24px, 3.5vw, 42px)",
                 fontWeight: 700,
-                color: "#f5f0eb",
+                color: "#1a0808",
                 lineHeight: 1.15,
                 marginBottom: "8px",
               }}>
@@ -540,7 +540,7 @@ export default function AboutPage() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(18px, 2.5vw, 28px)",
                 fontWeight: 400,
-                color: "rgba(245,240,235,0.6)",
+                color: "rgba(26,8,8,0.6)",
                 fontStyle: "italic",
               }}>
                 Sonam Gyurme
@@ -552,7 +552,7 @@ export default function AboutPage() {
             <p className="quote-line" style={{
               fontFamily: "'Crimson Text', serif",
               fontSize: "clamp(15px, 1.8vw, 19px)",
-              color: "rgba(245,240,235,0.75)",
+              color: "rgba(26,8,8,0.75)",
               lineHeight: 1.85,
               paddingLeft: "24px",
               borderLeft: "none",
@@ -563,7 +563,7 @@ export default function AboutPage() {
             <p style={{
               fontFamily: "'Crimson Text', serif",
               fontSize: "clamp(14px, 1.6vw, 17px)",
-              color: "rgba(245,240,235,0.55)",
+              color: "rgba(26,8,8,0.55)",
               lineHeight: 1.85,
             }}>
               Having received extensive monastic education and earned the prestigious title of <em>Khenpo (Abbot/Professor of Buddhist Philosophy)</em>, he has guided thousands of practitioners in Mahayana and Vajrayana Buddhism — particularly the powerful Ngyungne fasting retreat of Chenrezig, the Buddha of Compassion.
@@ -576,8 +576,8 @@ export default function AboutPage() {
                   fontSize: "10px",
                   letterSpacing: "0.15em",
                   padding: "6px 14px",
-                  border: "1px solid rgba(185,28,28,0.5)",
-                  color: "rgba(245,240,235,0.6)",
+                  border: "1px solid rgba(185,28,28,0.2)",
+                  color: "#6b3333",
                   borderRadius: "2px",
                   textTransform: "uppercase",
                 }}>
@@ -592,7 +592,7 @@ export default function AboutPage() {
       {/* ── ABOUT BTMC ───────────────────────────────────────────────────── */}
       <section style={{
         padding: "120px 24px",
-        background: "linear-gradient(180deg, rgba(10,5,5,0) 0%, rgba(20,5,5,1) 20%, rgba(20,5,5,1) 80%, rgba(10,5,5,0) 100%)",
+        background: "linear-gradient(180deg, rgba(253,248,243,0) 0%, rgba(253,248,243,1) 10%, rgba(253,248,243,1) 90%, rgba(253,248,243,0) 100%)",
         position: "relative",
       }}>
         <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
@@ -612,7 +612,7 @@ export default function AboutPage() {
               fontFamily: "'Cinzel', serif",
               fontSize: "clamp(28px, 5vw, 60px)",
               fontWeight: 700,
-              color: "#f5f0eb",
+              color: "#1a0808",
               lineHeight: 1.1,
               marginBottom: "60px",
             }}
@@ -652,7 +652,7 @@ export default function AboutPage() {
                   fontFamily: "'Cinzel', serif",
                   fontSize: "clamp(48px, 6vw, 80px)",
                   fontWeight: 900,
-                  color: "rgba(185,28,28,0.15)",
+                  color: "rgba(185,28,28,0.12)",
                   lineHeight: 1,
                   userSelect: "none",
                   minWidth: "60px",
@@ -664,7 +664,7 @@ export default function AboutPage() {
                     fontFamily: "'Cinzel', serif",
                     fontSize: "clamp(14px, 1.8vw, 20px)",
                     fontWeight: 600,
-                    color: "#f5f0eb",
+                    color: "#1a0808",
                     marginBottom: "12px",
                   }}>
                     {block.heading}
@@ -672,7 +672,7 @@ export default function AboutPage() {
                   <p style={{
                     fontFamily: "'Crimson Text', serif",
                     fontSize: "clamp(15px, 1.7vw, 18px)",
-                    color: "rgba(245,240,235,0.6)",
+                    color: "rgba(26,8,8,0.6)",
                     lineHeight: 1.85,
                   }}>
                     {block.body}
@@ -701,7 +701,7 @@ export default function AboutPage() {
               fontFamily: "'Cinzel', serif",
               fontSize: "clamp(28px, 5vw, 56px)",
               fontWeight: 700,
-              color: "#f5f0eb",
+              color: "#1a0808",
               lineHeight: 1.1,
             }}>
               Seven Institutions.<br />One Mission.
@@ -728,7 +728,7 @@ export default function AboutPage() {
                     borderRadius: "50%",
                     overflow: "hidden",
                     border: `2px solid rgba(185,28,28,${activeInstitution === i ? 0.8 : 0.35})`,
-                    background: "rgba(20,5,5,0.9)",
+                    background: "rgba(253,248,243,1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -777,7 +777,7 @@ export default function AboutPage() {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "17px",
                   fontWeight: 600,
-                  color: "#f5f0eb",
+                  color: "#1a0808",
                   lineHeight: 1.35,
                   marginBottom: "16px",
                   textAlign: "center",
@@ -798,7 +798,7 @@ export default function AboutPage() {
                       style={{
                         fontFamily: "'Crimson Text', serif",
                         fontSize: "16px",
-                        color: "rgba(245,240,235,0.65)",
+                        color: "rgba(26,8,8,0.65)",
                         lineHeight: 1.75,
                         overflow: "hidden",
                         marginBottom: "20px",
@@ -817,7 +817,7 @@ export default function AboutPage() {
                       fontFamily: "'Cinzel', serif",
                       fontSize: "9px",
                       letterSpacing: "0.2em",
-                      color: "rgba(185,28,28,0.55)",
+                      color: "rgba(185,28,28,0.45)",
                       textTransform: "uppercase",
                     }}>
                       Tap to learn more ↓
@@ -837,7 +837,7 @@ export default function AboutPage() {
                         fontFamily: "'Cinzel', serif",
                         fontSize: "10px",
                         letterSpacing: "0.2em",
-                        color: "#f5f0eb",
+                        color: "#1a0808",
                         textDecoration: "none",
                         textTransform: "uppercase",
                         transition: "all 0.3s ease",
@@ -866,7 +866,7 @@ export default function AboutPage() {
       {/* ── WEEKLY RETREATS ──────────────────────────────────────────────── */}
       <section style={{
         padding: "120px 24px",
-        background: "radial-gradient(ellipse at 50% 100%, rgba(120,10,10,0.25) 0%, rgba(10,5,5,0) 70%)",
+        background: "linear-gradient(180deg, rgba(253,248,243,1) 0%, rgba(255,248,242,1) 100%)",
         position: "relative",
       }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -884,7 +884,7 @@ export default function AboutPage() {
                 fontFamily: "'Cinzel', serif",
                 fontSize: "clamp(26px, 4vw, 50px)",
                 fontWeight: 700,
-                color: "#f5f0eb",
+                color: "#1a0808",
                 lineHeight: 1.15,
                 marginBottom: "24px",
               }}>
@@ -893,7 +893,7 @@ export default function AboutPage() {
               <p style={{
                 fontFamily: "'Crimson Text', serif",
                 fontSize: "clamp(15px, 1.7vw, 18px)",
-                color: "rgba(245,240,235,0.6)",
+                color: "rgba(26,8,8,0.6)",
                 lineHeight: 1.85,
                 marginBottom: "32px",
               }}>
@@ -906,7 +906,7 @@ export default function AboutPage() {
                   alignItems: "center",
                   gap: "12px",
                   padding: "14px 28px",
-                  border: "1px solid rgba(185,28,28,0.5)",
+                  border: "1px solid rgba(185,28,28,0.2)",
                   borderRadius: "2px",
                   cursor: "pointer",
                   transition: "all 0.3s ease",
@@ -922,7 +922,7 @@ export default function AboutPage() {
                   (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(185,28,28,0.5)";
                 }}
               >
-                <span style={{ fontFamily: "'Cinzel', serif", fontSize: "11px", letterSpacing: "0.25em", color: "#f5f0eb", textTransform: "uppercase" }}>
+                <span style={{ fontFamily: "'Cinzel', serif", fontSize: "11px", letterSpacing: "0.25em", color: "#1a0808", textTransform: "uppercase" }}>
                   Join a Retreat
                 </span>
                 <span style={{ color: "#dc2626" }}>→</span>
@@ -950,7 +950,7 @@ export default function AboutPage() {
                     gap: "20px",
                     padding: "20px 24px",
                     borderRadius: "4px",
-                    background: "rgba(20,5,5,0.6)",
+                    background: "#fff",
                     cursor: "default",
                   }}
                 >
@@ -959,7 +959,7 @@ export default function AboutPage() {
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: "18px",
                     fontWeight: 500,
-                    color: "rgba(245,240,235,0.8)",
+                    color: "rgba(26,8,8,0.8)",
                   }}>
                     {item.label}
                   </span>
@@ -973,7 +973,7 @@ export default function AboutPage() {
       {/* ── 2026 RETREAT EVENT ───────────────────────────────────────────── */}
       <section style={{
         padding: "120px 24px",
-        background: "linear-gradient(135deg, #0f0202, #1a0404, #0f0202)",
+        background: "linear-gradient(180deg, #fdf8f3 0%, #fff5f0 50%, #fdf8f3 100%)",
         position: "relative",
         overflow: "hidden",
       }}>
@@ -987,7 +987,7 @@ export default function AboutPage() {
           fontFamily: "'Cinzel', serif",
           fontSize: "clamp(120px, 18vw, 280px)",
           fontWeight: 900,
-          color: "rgba(185,28,28,0.04)",
+          color: "rgba(185,28,28,0.06)",
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",
@@ -1011,7 +1011,7 @@ export default function AboutPage() {
               fontFamily: "'Cinzel', serif",
               fontSize: "clamp(22px, 3.5vw, 44px)",
               fontWeight: 700,
-              color: "#f5f0eb",
+              color: "#1a0808",
               lineHeight: 1.15,
               marginBottom: "32px",
             }}>
@@ -1020,7 +1020,7 @@ export default function AboutPage() {
             <p style={{
               fontFamily: "'Crimson Text', serif",
               fontSize: "clamp(16px, 1.8vw, 20px)",
-              color: "rgba(245,240,235,0.6)",
+              color: "rgba(26,8,8,0.6)",
               lineHeight: 1.85,
               marginBottom: "24px",
             }}>
@@ -1031,12 +1031,12 @@ export default function AboutPage() {
               alignItems: "center",
               gap: "12px",
               padding: "6px 20px",
-              background: "rgba(185,28,28,0.15)",
-              border: "1px solid rgba(185,28,28,0.4)",
+              background: "rgba(185,28,28,0.06)",
+              border: "1px solid rgba(185,28,28,0.18)",
               borderRadius: "2px",
               marginBottom: "36px",
             }}>
-              <span style={{ fontFamily: "'Crimson Text', serif", fontSize: "18px", color: "rgba(245,240,235,0.7)", fontStyle: "italic" }}>
+              <span style={{ fontFamily: "'Crimson Text', serif", fontSize: "18px", color: "rgba(26,8,8,0.7)", fontStyle: "italic" }}>
                 Free of cost · Voluntary donations basis
               </span>
             </div>
@@ -1086,7 +1086,7 @@ export default function AboutPage() {
       {/* ── VISION ───────────────────────────────────────────────────────── */}
       <section style={{
         padding: "140px 24px",
-        background: "radial-gradient(ellipse at 50% 50%, rgba(100,8,8,0.3) 0%, rgba(10,5,5,1) 70%)",
+        background: "linear-gradient(180deg, rgba(185,28,28,0.05) 0%, rgba(253,248,243,1) 50%)",
         position: "relative",
       }}>
         <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
@@ -1111,7 +1111,7 @@ export default function AboutPage() {
               fontSize: "clamp(22px, 3.5vw, 42px)",
               fontWeight: 300,
               fontStyle: "italic",
-              color: "#f5f0eb",
+              color: "#1a0808",
               lineHeight: 1.5,
               marginBottom: "40px",
               letterSpacing: "0.01em",
@@ -1121,7 +1121,7 @@ export default function AboutPage() {
             <p style={{
               fontFamily: "'Crimson Text', serif",
               fontSize: "clamp(15px, 1.7vw, 18px)",
-              color: "rgba(245,240,235,0.5)",
+              color: "rgba(26,8,8,0.5)",
               lineHeight: 1.85,
             }}>
               Through teachings, pilgrimage tours, and community outreach, BTMC fosters a sense of global unity, understanding, and collective well-being — helping individuals cultivate inner transformation while contributing to the peace of all sentient beings.
@@ -1130,7 +1130,7 @@ export default function AboutPage() {
             {/* Bottom ornament */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px", marginTop: "60px" }}>
               <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg, transparent, rgba(185,28,28,0.3))" }} />
-              <span style={{ fontFamily: "'Cinzel', serif", fontSize: "10px", letterSpacing: "0.3em", color: "rgba(185,28,28,0.5)", textTransform: "uppercase" }}>BTMC · Est. 2003</span>
+              <span style={{ fontFamily: "'Cinzel', serif", fontSize: "10px", letterSpacing: "0.3em", color: "rgba(185,28,28,0.45)", textTransform: "uppercase" }}>BTMC · Est. 2003</span>
               <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg, rgba(185,28,28,0.3), transparent)" }} />
             </div>
           </motion.div>

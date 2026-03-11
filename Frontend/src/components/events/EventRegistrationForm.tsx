@@ -2,79 +2,50 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Loader2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { Event } from '../../types/event';
 
 // ─────────────────────────────────────────────────────────────────────
 // EMAILJS KEYS — replace all 3 with your actual values
 // Dashboard: https://www.emailjs.com
 // ─────────────────────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = 'service_e5kyezy';   // e.g. 'service_wklc209'
-const EMAILJS_TEMPLATE_ID = 'template_0na8fw3';  // from EmailJS template page
-const EMAILJS_PUBLIC_KEY  = 'ar7BuT-S-2ysVDrIB';   // Account → API Keys
-
-export interface EventRegistrationData {
-  fullName: string;
-  email: string;
-  phone: string;
-  country: string;
-  ticketType: string;
-  quantity: number;
-  specialRequirements: string;
-}
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // e.g. 'service_wklc209'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // from EmailJS template page
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account → API Keys
 
 interface EventRegistrationFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: EventRegistrationData) => void;
-  event: Event;
+  onSubmit: (data: any) => void;
+  eventTitle: string;
+  eventDate?: string;
+  eventVenue?: string;
 }
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '12px 14px',
-  background: 'rgba(10,5,5,0.8)',
-  border: '1px solid rgba(185,28,28,0.25)',
-  borderRadius: '3px',
-  color: '#f5f0eb',
-  fontFamily: "'Crimson Text', serif",
-  fontSize: '16px',
-  outline: 'none',
-  transition: 'border-color 0.2s ease',
-  boxSizing: 'border-box' as const,
-};
-
-const labelStyle: React.CSSProperties = {
-  fontFamily: "'Cinzel', serif",
-  fontSize: '9px',
-  letterSpacing: '0.25em',
-  textTransform: 'uppercase' as const,
-  color: 'rgba(245,240,235,0.45)',
-  display: 'block',
-  marginBottom: '6px',
-};
-
-export default function EventRegistrationForm({
-  isOpen,
-  onClose,
-  onSubmit,
-  event,
-}: EventRegistrationFormProps) {
-  const [formData, setFormData] = useState<EventRegistrationData>({
-    fullName: '',
-    email: '',
-    phone: '',
-    country: '',
-    ticketType: event.ticketTypes[0]?.type || '',
-    quantity: 1,
-    specialRequirements: '',
+const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
+  isOpen, onClose, onSubmit, eventTitle, eventDate = '', eventVenue = ''
+}) => {
+  const [form, setForm] = useState({
+    fullName: '', email: '', phone: '', country: 'Nepal',
+    ticketType: 'Regular', participants: 1,
+    dietaryRequirements: '', specialRequests: '',
   });
-  const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [step, setStep] = useState<1 | 2>(1);
+  const [focused, setFocused] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
 
-  const selectedTicket = event.ticketTypes.find((t) => t.type === formData.ticketType);
-  const totalPrice = selectedTicket ? selectedTicket.price * formData.quantity : 0;
+  const inp = (f: string): React.CSSProperties => ({
+    width: '100%', padding: '11px 14px', boxSizing: 'border-box',
+    background: '#fdf8f3',
+    border: `1px solid ${focused === f ? '#b91c1c' : 'rgba(185,28,28,0.2)'}`,
+    borderRadius: '4px', color: '#1a0808',
+    fontFamily: "'Crimson Text',serif", fontSize: '16px',
+    outline: 'none', transition: 'border-color 0.2s, box-shadow 0.2s',
+    boxShadow: focused === f ? '0 0 0 3px rgba(185,28,28,0.08)' : 'none',
+  });
+  const lbl: React.CSSProperties = {
+    fontFamily: "'Cinzel',serif", fontSize: '8.5px', letterSpacing: '0.28em',
+    color: '#a07070', textTransform: 'uppercase', display: 'block', marginBottom: '5px',
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,378 +57,142 @@ export default function EventRegistrationForm({
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          // Personal Info
-          name:                 formData.fullName,
-          email:                formData.email,
-          phone:                formData.phone,
-          country:              formData.country,
-          // Event Info
-          event_name:           event.title,
-          event_date:           event.date,
-          event_venue:          event.venue,
-          // Booking
-          ticket_type:          formData.ticketType,
-          quantity:             String(formData.quantity),
-          total_price:          totalPrice === 0 ? 'Free' : 'Rs. ' + totalPrice,
-          // Extra
-          special_requirements: formData.specialRequirements || 'None',
-          time:                 new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' }),
+          name:                 form.fullName,
+          email:                form.email,
+          phone:                form.phone,
+          country:              form.country,
+          event_name:           eventTitle,
+          event_date:           eventDate,
+          event_venue:          eventVenue,
+          ticket_type:          form.ticketType,
+          quantity:             String(form.participants),
+          total_price:          'See registration',
+          special_requirements: [
+            form.dietaryRequirements ? `Dietary: ${form.dietaryRequirements}` : '',
+            form.specialRequests     ? `Requests: ${form.specialRequests}` : '',
+          ].filter(Boolean).join(' | ') || 'None',
+          time: new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' }),
         },
         EMAILJS_PUBLIC_KEY,
       );
-      onSubmit(formData);
+      setSubmitted(true);
+      setTimeout(() => {
+        onSubmit(form);
+        setSubmitted(false);
+        setForm({ fullName: '', email: '', phone: '', country: 'Nepal', ticketType: 'Regular', participants: 1, dietaryRequirements: '', specialRequests: '' });
+      }, 2000);
     } catch (err) {
       console.error('EmailJS error:', err);
-      setSendError('Failed to send registration. Please try again or contact us directly.');
+      setSendError('Failed to send. Please try again or contact us directly.');
     } finally {
       setIsSending(false);
     }
   };
 
-  const focusedBorder = 'rgba(220,38,38,0.7)';
-  const normalBorder = 'rgba(185,28,28,0.25)';
-
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          style={{
-            position: 'fixed', inset: 0,
-            background: 'rgba(5,2,2,0.85)',
-            backdropFilter: 'blur(6px)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '16px', zIndex: 9999,
-          }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(26,8,8,0.55)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backdropFilter: 'blur(4px)' }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={e => e.target === e.currentTarget && onClose()}
         >
           <motion.div
-            initial={{ scale: 0.93, opacity: 0, y: 30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.93, opacity: 0, y: 30 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: '100%', maxWidth: '620px',
-              maxHeight: '90vh', overflowY: 'auto',
-              background: 'linear-gradient(160deg, #110404, #1c0808)',
-              border: '1px solid rgba(185,28,28,0.35)',
-              borderRadius: '8px',
-              boxShadow: '0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(185,28,28,0.1)',
-              fontFamily: "'Cormorant Garamond', serif",
-            }}
+            style={{ background: '#fff', border: '1px solid rgba(185,28,28,0.15)', borderRadius: '6px', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 24px 60px rgba(26,8,8,0.18)' }}
+            initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
           >
             <style>{`
-              @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;600&family=Crimson+Text:wght@400;600&display=swap');
-              .reg-input:focus { border-color: rgba(220,38,38,0.7) !important; box-shadow: 0 0 0 3px rgba(185,28,28,0.1); }
-              .reg-textarea { resize: vertical; min-height: 80px; }
-              .ticket-option { cursor: pointer; transition: all 0.25s ease; }
-              .ticket-option:hover { border-color: rgba(220,38,38,0.5) !important; }
-              .ticket-option.selected { border-color: #dc2626 !important; background: rgba(40,8,8,0.8) !important; }
-              .reg-form-scroll::-webkit-scrollbar { width: 3px; }
-              .reg-form-scroll::-webkit-scrollbar-track { background: transparent; }
-              .reg-form-scroll::-webkit-scrollbar-thumb { background: rgba(185,28,28,0.4); border-radius: 2px; }
+              @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;600&display=swap');
+              input::placeholder, textarea::placeholder { color: rgba(26,8,8,0.22) !important; }
+              select option { background: #fff; color: #1a0808; }
+              @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
             `}</style>
 
-            {/* ── Header ── */}
-            <div style={{
-              padding: '24px 28px',
-              borderBottom: '1px solid rgba(185,28,28,0.15)',
-              display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-              background: 'linear-gradient(135deg, rgba(120,10,10,0.25), rgba(185,28,28,0.1))',
-            }}>
+            {/* Header */}
+            <div style={{ padding: '18px 22px', borderBottom: '1px solid rgba(185,28,28,0.1)', background: 'rgba(185,28,28,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
               <div>
-                <p style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.3em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '4px' }}>
-                  Event Registration
-                </p>
-                <h3 style={{ fontFamily: "'Cinzel', serif", fontSize: 'clamp(14px, 2vw, 20px)', fontWeight: 700, color: '#f5f0eb', lineHeight: 1.2, maxWidth: '440px' }}>
-                  {event.title}
-                </h3>
-                <p style={{ fontFamily: "'Crimson Text', serif", fontSize: '14px', color: 'rgba(245,240,235,0.4)', marginTop: '4px', fontStyle: 'italic' }}>
-                  {event.date}
-                </p>
+                <p style={{ fontFamily: "'Cinzel',serif", fontSize: '8px', letterSpacing: '0.35em', color: '#b91c1c', textTransform: 'uppercase', marginBottom: '4px' }}>Register Now</p>
+                <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '15px', fontWeight: 700, color: '#1a0808' }}>Event Registration</h3>
+                <p style={{ fontFamily: "'Crimson Text',serif", fontSize: '13px', color: '#a07070', fontStyle: 'italic', marginTop: '2px' }}>{eventTitle}</p>
               </div>
-              <button
-                onClick={onClose}
-                style={{
-                  width: '32px', height: '32px', borderRadius: '50%',
-                  border: '1px solid rgba(185,28,28,0.3)',
-                  background: 'rgba(185,28,28,0.08)',
-                  color: 'rgba(245,240,235,0.5)',
-                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0, marginLeft: '12px',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(185,28,28,0.25)'; (e.currentTarget as HTMLButtonElement).style.color = '#f5f0eb'; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(185,28,28,0.08)'; (e.currentTarget as HTMLButtonElement).style.color = 'rgba(245,240,235,0.5)'; }}
-              >
-                <X size={15} />
+              <button onClick={onClose} style={{ background: 'rgba(185,28,28,0.06)', border: '1px solid rgba(185,28,28,0.15)', borderRadius: '50%', width: '34px', height: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <X size={14} color="#a07070" />
               </button>
             </div>
 
-            {/* ── Step indicator ── */}
-            <div style={{ padding: '16px 28px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-              {[1, 2].map((s) => (
-                <React.Fragment key={s}>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: '8px', cursor: s < step ? 'pointer' : 'default',
-                  }} onClick={() => s < step && setStep(s as 1 | 2)}>
-                    <div style={{
-                      width: '24px', height: '24px', borderRadius: '50%',
-                      background: step >= s ? 'linear-gradient(135deg, #991b1b, #dc2626)' : 'rgba(20,5,5,0.8)',
-                      border: `1px solid ${step >= s ? '#dc2626' : 'rgba(185,28,28,0.25)'}`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: "'Cinzel', serif", fontSize: '10px', color: step >= s ? '#fff' : 'rgba(245,240,235,0.3)',
-                      flexShrink: 0,
-                    }}>
-                      {step > s ? <Check size={11} /> : s}
-                    </div>
-                    <span style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: step >= s ? 'rgba(245,240,235,0.7)' : 'rgba(245,240,235,0.25)' }}>
-                      {s === 1 ? 'Choose Option' : 'Your Details'}
-                    </span>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '22px' }}>
+              {submitted ? (
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center', padding: '28px 0' }}>
+                  <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(22,163,74,0.1)', border: '2px solid rgba(22,163,74,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                    <Check size={26} color="#16a34a" />
                   </div>
-                  {s === 1 && <div style={{ flex: 1, height: '1px', background: step > 1 ? '#dc2626' : 'rgba(185,28,28,0.2)' }} />}
-                </React.Fragment>
-              ))}
-            </div>
-
-            <form onSubmit={handleSubmit} style={{ padding: '8px 28px 28px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-
-              {/* ── STEP 1: Ticket selection ── */}
-              {step === 1 && (
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <p style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.3em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '4px' }}>
-                    Select Participation Type
-                  </p>
-                  {event.ticketTypes.map((ticket) => (
-                    <div
-                      key={ticket.type}
-                      className={`ticket-option${formData.ticketType === ticket.type ? ' selected' : ''}`}
-                      onClick={() => setFormData({ ...formData, ticketType: ticket.type })}
-                      style={{
-                        padding: '16px', borderRadius: '4px',
-                        border: `1px solid ${formData.ticketType === ticket.type ? '#dc2626' : 'rgba(185,28,28,0.2)'}`,
-                        background: formData.ticketType === ticket.type ? 'rgba(40,8,8,0.8)' : 'rgba(20,5,5,0.5)',
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                        <span style={{ fontFamily: "'Cinzel', serif", fontSize: '13px', fontWeight: 600, color: '#f5f0eb' }}>
-                          {ticket.type}
-                        </span>
-                        <span style={{
-                          fontFamily: "'Cinzel', serif", fontSize: '13px', fontWeight: 700,
-                          color: ticket.price === 0 ? '#16a34a' : '#dc2626',
-                        }}>
-                          {ticket.price === 0 ? 'Free' : `Rs. ${ticket.price}`}
-                        </span>
-                      </div>
-                      <ul style={{ display: 'flex', flexDirection: 'column', gap: '5px', listStyle: 'none', padding: 0 }}>
-                        {ticket.benefits.map((benefit, i) => (
-                          <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                            <Check size={12} color="#16a34a" style={{ marginTop: '3px', flexShrink: 0 }} />
-                            <span style={{ fontFamily: "'Crimson Text', serif", fontSize: '15px', color: 'rgba(245,240,235,0.55)' }}>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(245,240,235,0.2)', marginTop: '10px' }}>
-                        {ticket.available} spots available
-                      </p>
-                    </div>
-                  ))}
-
-                  <button
-                    type="button"
-                    onClick={() => setStep(2)}
-                    style={{
-                      marginTop: '8px',
-                      padding: '14px',
-                      background: 'linear-gradient(135deg, #991b1b, #dc2626)',
-                      color: '#fff', border: 'none', borderRadius: '3px',
-                      fontFamily: "'Cinzel', serif", fontSize: '11px',
-                      letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700,
-                      cursor: 'pointer', boxShadow: '0 6px 20px rgba(185,28,28,0.35)',
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #7f1d1d, #b91c1c)'; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #991b1b, #dc2626)'; }}
-                  >
-                    Continue →
-                  </button>
+                  <h4 style={{ fontFamily: "'Cinzel',serif", fontSize: '15px', color: '#1a0808', marginBottom: '8px' }}>Registered!</h4>
+                  <p style={{ fontFamily: "'Crimson Text',serif", fontSize: '16px', color: '#a07070', fontStyle: 'italic' }}>We look forward to seeing you. 🙏</p>
                 </motion.div>
-              )}
-
-              {/* ── STEP 2: Personal details ── */}
-              {step === 2 && (
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              ) : (
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={labelStyle}>Full Name *</label>
-                      <input
-                        type="text" required className="reg-input"
-                        placeholder="Your full name"
-                        style={{ ...inputStyle, borderColor: focusedField === 'name' ? focusedBorder : normalBorder }}
-                        value={formData.fullName}
-                        onFocus={() => setFocusedField('name')}
-                        onBlur={() => setFocusedField(null)}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      />
+                      <label style={lbl}>Full Name *</label>
+                      <input type="text" required value={form.fullName} onChange={e => setForm({ ...form, fullName: e.target.value })} onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} placeholder="Your name" style={inp('name')} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Country *</label>
-                      <input
-                        type="text" required className="reg-input"
-                        placeholder="Your country"
-                        style={{ ...inputStyle, borderColor: focusedField === 'country' ? focusedBorder : normalBorder }}
-                        value={formData.country}
-                        onFocus={() => setFocusedField('country')}
-                        onBlur={() => setFocusedField(null)}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                      />
+                      <label style={lbl}>Phone *</label>
+                      <input type="tel" required value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} onFocus={() => setFocused('phone')} onBlur={() => setFocused(null)} placeholder="+977…" style={inp('phone')} />
                     </div>
                   </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                    <div>
-                      <label style={labelStyle}>Email *</label>
-                      <input
-                        type="email" required className="reg-input"
-                        placeholder="your@email.com"
-                        style={{ ...inputStyle, borderColor: focusedField === 'email' ? focusedBorder : normalBorder }}
-                        value={formData.email}
-                        onFocus={() => setFocusedField('email')}
-                        onBlur={() => setFocusedField(null)}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                    </div>
-                    <div>
-                      <label style={labelStyle}>Phone / WhatsApp *</label>
-                      <input
-                        type="tel" required className="reg-input"
-                        placeholder="+977 ..."
-                        style={{ ...inputStyle, borderColor: focusedField === 'phone' ? focusedBorder : normalBorder }}
-                        value={formData.phone}
-                        onFocus={() => setFocusedField('phone')}
-                        onBlur={() => setFocusedField(null)}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      />
-                    </div>
-                  </div>
-
                   <div>
-                    <label style={labelStyle}>Number of Participants</label>
-                    <input
-                      type="number" min="1"
-                      max={selectedTicket?.available || 1}
-                      className="reg-input"
-                      style={{ ...inputStyle, borderColor: focusedField === 'qty' ? focusedBorder : normalBorder, maxWidth: '140px' }}
-                      value={formData.quantity}
-                      onFocus={() => setFocusedField('qty')}
-                      onBlur={() => setFocusedField(null)}
-                      onChange={(e) => setFormData({ ...formData, quantity: Math.max(1, parseInt(e.target.value) || 1) })}
-                    />
+                    <label style={lbl}>Email *</label>
+                    <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} placeholder="your@email.com" style={inp('email')} />
                   </div>
-
-                  <div>
-                    <label style={labelStyle}>Special Requirements or Message (Optional)</label>
-                    <textarea
-                      className="reg-input reg-textarea"
-                      placeholder="Dietary needs, accessibility requirements, or any questions..."
-                      style={{ ...inputStyle, borderColor: focusedField === 'req' ? focusedBorder : normalBorder, minHeight: '80px', resize: 'vertical' }}
-                      value={formData.specialRequirements}
-                      onFocus={() => setFocusedField('req')}
-                      onBlur={() => setFocusedField(null)}
-                      onChange={(e) => setFormData({ ...formData, specialRequirements: e.target.value })}
-                    />
-                  </div>
-
-                  {/* Summary */}
-                  <div style={{
-                    padding: '16px', borderRadius: '3px',
-                    background: 'rgba(10,5,5,0.7)',
-                    border: '1px solid rgba(185,28,28,0.2)',
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <span style={{ fontFamily: "'Cinzel', serif", fontSize: '9px', letterSpacing: '0.2em', color: 'rgba(245,240,235,0.4)', textTransform: 'uppercase' }}>
-                        {formData.ticketType} × {formData.quantity}
-                      </span>
-                      <span style={{ fontFamily: "'Cinzel', serif", fontSize: '16px', fontWeight: 700, color: totalPrice === 0 ? '#16a34a' : '#dc2626' }}>
-                        {totalPrice === 0 ? 'Free' : `Rs. ${totalPrice}`}
-                      </span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    <div>
+                      <label style={lbl}>Country *</label>
+                      <input type="text" required value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} onFocus={() => setFocused('country')} onBlur={() => setFocused(null)} style={inp('country')} />
                     </div>
-                    {event.registrationNote && (
-                      <p style={{ fontFamily: "'Crimson Text', serif", fontSize: '13px', color: 'rgba(245,240,235,0.3)', fontStyle: 'italic', lineHeight: 1.5 }}>
-                        {event.registrationNote}
-                      </p>
-                    )}
+                    <div>
+                      <label style={lbl}>Ticket Type</label>
+                      <select value={form.ticketType} onChange={e => setForm({ ...form, ticketType: e.target.value })} onFocus={() => setFocused('ticket')} onBlur={() => setFocused(null)} style={{ ...inp('ticket'), cursor: 'pointer' }}>
+                        {['Regular', 'VIP', 'VVIP'].map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label style={lbl}>Participants *</label>
+                    <input type="number" required min="1" value={form.participants} onChange={e => setForm({ ...form, participants: parseInt(e.target.value) || 1 })} onFocus={() => setFocused('part')} onBlur={() => setFocused(null)} style={{ ...inp('part'), maxWidth: '120px' }} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Dietary Requirements</label>
+                    <input type="text" value={form.dietaryRequirements} onChange={e => setForm({ ...form, dietaryRequirements: e.target.value })} onFocus={() => setFocused('diet')} onBlur={() => setFocused(null)} placeholder="Vegetarian, vegan…" style={inp('diet')} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Special Requests</label>
+                    <textarea value={form.specialRequests} onChange={e => setForm({ ...form, specialRequests: e.target.value })} onFocus={() => setFocused('req')} onBlur={() => setFocused(null)} rows={2} placeholder="Any requirements…" style={{ ...inp('req'), resize: 'vertical', minHeight: '72px' }} />
                   </div>
 
                   {sendError && (
-                    <div style={{
-                      padding: '12px 16px',
-                      background: 'rgba(185,28,28,0.12)',
-                      border: '1px solid rgba(185,28,28,0.4)',
-                      borderRadius: '3px',
-                      fontFamily: "'Crimson Text', serif",
-                      fontSize: '15px', color: '#f87171', lineHeight: 1.5,
-                    }}>
+                    <div style={{ padding: '10px 14px', background: 'rgba(185,28,28,0.06)', border: '1px solid rgba(185,28,28,0.25)', borderRadius: '4px', fontFamily: "'Crimson Text',serif", fontSize: '15px', color: '#b91c1c', lineHeight: 1.5 }}>
                       {sendError}
                     </div>
                   )}
 
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <button
-                      type="button"
-                      disabled={isSending}
-                      onClick={() => setStep(1)}
-                      style={{
-                        padding: '14px 20px',
-                        background: 'transparent',
-                        color: 'rgba(245,240,235,0.45)',
-                        border: '1px solid rgba(185,28,28,0.25)',
-                        borderRadius: '3px',
-                        fontFamily: "'Cinzel', serif", fontSize: '10px',
-                        letterSpacing: '0.2em', textTransform: 'uppercase',
-                        cursor: 'pointer', transition: 'all 0.2s ease',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSending}
-                      style={{
-                        flex: 1, padding: '14px',
-                        background: isSending ? 'rgba(120,10,10,0.6)' : 'linear-gradient(135deg, #991b1b, #dc2626)',
-                        color: '#fff', border: 'none', borderRadius: '3px',
-                        fontFamily: "'Cinzel', serif", fontSize: '11px',
-                        letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700,
-                        cursor: isSending ? 'not-allowed' : 'pointer',
-                        boxShadow: isSending ? 'none' : '0 6px 20px rgba(185,28,28,0.35)',
-                        transition: 'all 0.3s ease',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                      }}
-                      onMouseEnter={(e) => { if (!isSending) (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #7f1d1d, #b91c1c)'; }}
-                      onMouseLeave={(e) => { if (!isSending) (e.currentTarget as HTMLButtonElement).style.background = 'linear-gradient(135deg, #991b1b, #dc2626)'; }}
-                    >
-                      {isSending ? (
-                        <>
-                          <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />
-                          Sending...
-                          <style>{'@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }'}</style>
-                        </>
-                      ) : 'Complete Registration'}
-                    </button>
-                  </div>
-                </motion.div>
+                  <button
+                    type="submit"
+                    disabled={isSending}
+                    style={{ width: '100%', padding: '13px', background: isSending ? 'rgba(153,27,27,0.6)' : 'linear-gradient(135deg,#991b1b,#b91c1c)', color: '#fff', border: 'none', borderRadius: '4px', fontFamily: "'Cinzel',serif", fontSize: '10.5px', letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700, cursor: isSending ? 'not-allowed' : 'pointer', boxShadow: isSending ? 'none' : '0 6px 20px rgba(185,28,28,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                  >
+                    {isSending ? (
+                      <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> Sending…</>
+                    ) : 'Submit Registration'}
+                  </button>
+                </form>
               )}
-            </form>
+            </div>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default EventRegistrationForm;
