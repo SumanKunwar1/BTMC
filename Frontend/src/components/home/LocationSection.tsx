@@ -55,7 +55,7 @@ const LocationSection = () => (
 
         <motion.div initial={{ opacity:0, x:40 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:false }} transition={{ duration:0.8 }}
           style={{ borderRadius:'6px', overflow:'hidden', border:'1px solid rgba(185,28,28,0.15)', boxShadow:'0 12px 40px rgba(185,28,28,0.1)', height:'420px' }}>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1765.9625840525828!2d85.3403874!3d27.7375881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190011545255:0xca8e5c9afa20eaeb!2sP8QR%2B25J%2C%20Ring%20Rd%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1717907677167"
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.407437805686!2d85.372373!3d27.7189136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1b48aba75f4f%3A0xf0ea8f4c2b765e31!2sDharma%20Television%20HD!5e0!3m2!1sen!2snp!4v1719999999999"
             width="100%" height="100%" style={{ border:0, display:'block' }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         </motion.div>
       </div>
