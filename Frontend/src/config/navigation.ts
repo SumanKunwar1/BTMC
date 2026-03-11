@@ -4,6 +4,6 @@ export const NavItems = [
   { path: '/events', label: 'Retreats' },
   { path: '/teachings', label: 'Teachings' },
   { path: '/tours', label: 'Tours' },
-  { path: '/donate', label: 'Donars' },
+  { path: '/donors', label: 'Donors' },
   { path: '/contact', label: 'Contact' },
 ] as const;

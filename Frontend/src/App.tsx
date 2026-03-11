@@ -20,6 +20,7 @@ import Gallery from './pages/Gallery';
 import Career from './pages/Career';
 import FAQ from './pages/FAQ';
 import ContactPage from './pages/Contact';
+import DonorsPage from './pages/Donors';
 
 // Admin routes
 import Login from './pages/admin/AdminLogin';
@@ -134,6 +135,7 @@ function App() {
             <Route path="/tours/:id" element={<TourDetail />} />
             <Route path="/support" element={<Support />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/donors" element={<DonorsPage />} />
             <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/team" element={<Team />} />
             <Route path="/gallery" element={<Gallery />} />
