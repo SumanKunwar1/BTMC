@@ -21,6 +21,7 @@ import Career from './pages/Career';
 import FAQ from './pages/FAQ';
 import ContactPage from './pages/Contact';
 import DonorsPage from './pages/Donors';
+import ServicesPage from './pages/ServicesPage';
 
 // Admin routes
 import Login from './pages/admin/AdminLogin';
@@ -34,6 +35,7 @@ import AdminTours from './pages/admin/AdminTours';
 import Users from './pages/admin/AdminUsers';
 import AdminTourUsers from './pages/admin/AdminTourUsers';
 import AdminEnrollments from './pages/admin/AdminEnrollments';
+
 
 import ScrollToTop from './components/ScrollToTop';
 
@@ -142,6 +144,7 @@ function App() {
             <Route path="/career" element={<Career />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/services" element={<ServicesPage />} />
 
             {/* Admin Routes */}
             <Route 

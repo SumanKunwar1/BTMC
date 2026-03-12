@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Facebook, Instagram, Twitter, Linkedin, Youtube, Globe, Heart } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Youtube, Globe, Heart } from 'lucide-react';
 import { donors, Donor, SupportCategory } from '../data/donors';
 
 const SL = { height:'1px', background:'linear-gradient(90deg,transparent,rgba(185,28,28,0.2),rgba(217,119,6,0.15),rgba(185,28,28,0.2),transparent)' };

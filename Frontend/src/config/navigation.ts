@@ -5,5 +5,7 @@ export const NavItems = [
   { path: '/teachings', label: 'Teachings' },
   { path: '/tours', label: 'Tours' },
   { path: '/donors', label: 'Donors' },
+  { path: '/services', label: 'Services'},
   { path: '/contact', label: 'Contact' },
+  
 ] as const;
