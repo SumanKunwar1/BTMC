@@ -59,8 +59,8 @@ const institutions = [
     website: "https://www.purelandtravels.com.np/",
   },
   {
-    abbr: "Padma Sambhava Tri",
-    name: "Padma Sambhava Tri – India",
+    abbr: "Padma Sambhava Trip",
+    name: "Padma Sambhava Trip – India",
     desc: "A partner organization in India facilitating pilgrimage tours, spiritual travel, and retreat logistics for practitioners and visitors.",
     logo: "https://res.cloudinary.com/dihev9qxc/image/upload/v1768991877/453207561_122102729312441160_4787222294410407220_n-removebg-preview_voy795.png",
     fallbackIcon: "☸️",
