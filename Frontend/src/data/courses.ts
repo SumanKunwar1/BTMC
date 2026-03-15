@@ -2,38 +2,125 @@ import { CourseCategory } from '../types/course';
 
 export const courseCategories: CourseCategory[] = [
   {
-    id: 'buddhism',
-    title: 'Buddhism',
-    description: 'Comprehensive courses covering various aspects of Buddhist philosophy and practice',
-    image: 'https://res.cloudinary.com/dihev9qxc/image/upload/v1762066790/a-photograph-of-a-traditional-tibetan-st_5dVQ3zNATyiLh2pw3JHGGQ_UkaTKqtCRcmqWjx05mNKpg_psmdex.jpg',
+    id: 'thoema-chanting',
+    title: 'Thoema Chanting Class',
+    description: 'Learn the sacred art of Thoema chanting — a foundational Tibetan Buddhist practice for purification, merit accumulation, and deepening devotion through melodic offering prayers.',
+    image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576709/WhatsApp_Image_2026-03-12_at_21.36.25_ptlero.jpg',
     courses: [
       {
-        id: 'general-buddhism',
-        title: 'General Buddhism',
-        description: 'Introduction to fundamental Buddhist concepts and practices',
-        category: 'Buddhism',
-        duration: '3 months',
+        id: 'thoema-chanting-course',
+        title: 'Thoema Chanting',
+        description: 'Thoema (Mandala Offering) chanting is one of the most sacred and meritorious practices in Tibetan Buddhism. This class guides students through the proper pronunciation, melody, and meaning of the Thoema offering prayers. Students will learn the ritual context, the symbolic significance of each offering, and how to perform the practice both individually and in group settings. The class is suitable for beginners and those wishing to deepen their existing practice.',
+        category: 'Thoema Chanting',
+        duration: 'Ongoing — weekly sessions',
+        language: ['English', 'Nepali', 'Tibetan'],
+        instructor: {
+          name: 'Venerable Khen Rinpoche',
+          title: 'Senior Tibetan Buddhist Teacher',
+          bio: 'Venerable Khen Rinpoche has over 25 years of experience in Tibetan Buddhist ritual practice and has trained students across Nepal, India, and internationally. He specialises in chanting traditions, ritual liturgy, and foundational Vajrayana practices.',
+          image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576709/WhatsApp_Image_2026-03-12_at_21.36.25_ptlero.jpg',
+        },
+        highlights: [
+          'Correct pronunciation and melodic intonation of Thoema prayers',
+          'Understanding the symbolic meaning of mandala offerings',
+          'Accumulation of vast merit through the offering practice',
+          'Group chanting sessions with live guidance',
+          'Individual practice support and feedback',
+          'Introduction to ritual instruments and their use',
+          'Purification of negative karma through devotional chanting',
+          'Certificate of completion provided',
+        ],
+        materials: [
+          'Printed Thoema chanting text (Tibetan with transliteration)',
+          'Audio recordings of correct melody and pronunciation',
+          'Video tutorial sessions for home practice',
+          'Supplementary notes on the meaning of offerings',
+          'Course completion certificate',
+        ],
+        categoryId: 'thoema-chanting',
+      },
+    ],
+  },
+
+  {
+    id: 'rigzin-duepa',
+    title: 'Rigzin Duepa Puja Class',
+    description: 'A comprehensive study and practice class for the Rigzin Duepa — the Assemblage of Vidyadharas — one of the most important Longchen Nyingthig outer sadhana practices in the Nyingma tradition.',
+    image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576710/WhatsApp_Image_2026-03-12_at_21.36.25_1_l5i2gm.jpg',
+    courses: [
+      {
+        id: 'rigzin-duepa-course',
+        title: 'Rigzin Duepa Puja',
+        description: 'Rigzin Duepa (Assemblage of Vidyadharas) is a profound Longchen Nyingthig outer sadhana dedicated to Guru Rinpoche Padmasambhava and the lineage of Vidyadharas. This class provides a structured study of the complete puja text — covering the invocation, torma offerings, feast offerings (tsok), and dedication prayers. Students will learn the ritual sequence, the meaning behind each section, and the proper conduct during group puja. Prior Vajrayana empowerment is recommended but not strictly required for study.',
+        category: 'Rigzin Duepa Puja',
+        duration: 'Ongoing — bi-weekly sessions',
+        language: ['English', 'Nepali', 'Tibetan'],
+        instructor: {
+          name: 'Venerable Khen Rinpoche',
+          title: 'Senior Tibetan Buddhist Teacher',
+          bio: 'Venerable Khen Rinpoche has over 25 years of experience in Tibetan Buddhist ritual practice and has trained students across Nepal, India, and internationally. He specialises in chanting traditions, ritual liturgy, and foundational Vajrayana practices.',
+          image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576710/WhatsApp_Image_2026-03-12_at_21.36.25_1_l5i2gm.jpg',
+        },
+        highlights: [
+          'Complete walkthrough of the Rigzin Duepa sadhana text',
+          'Understanding the Longchen Nyingthig lineage and its significance',
+          'Proper ritual conduct and offerings during puja',
+          'Torma and feast (tsok) offering procedures',
+          'Invocation, praise, and dedication prayers explained',
+          'Live group puja sessions with experienced guidance',
+          'Deepen connection with Guru Rinpoche and the Vidyadhara lineage',
+          'Certificate of completion provided',
+        ],
+        materials: [
+          'Rigzin Duepa puja text (Tibetan with transliteration)',
+          'Audio recordings of the complete puja recitation',
+          'Video explanations of ritual sections',
+          'Notes on the Longchen Nyingthig tradition',
+          'Course completion certificate',
+        ],
+        categoryId: 'rigzin-duepa',
+      },
+    ],
+  },
+
+  {
+    id: 'ngyungne-practice',
+    title: 'Ngyungne Practice Class',
+    description: 'An immersive training class in Ngyungne — the fasting and purification retreat practice of Thousand-Armed Chenrezig. Learn the complete ritual, mantras, mudras, and the profound benefits of this transformative two-day practice.',
+    image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576710/WhatsApp_Image_2026-03-12_at_21.36.25_2_dnhv90.jpg',
+    courses: [
+      {
+        id: 'ngyungne-practice-course',
+        title: 'Ngyungne Practice',
+        description: 'Ngyungne is one of the most powerful purification practices in Tibetan Buddhism, centred on Thousand-Armed Chenrezig (Avalokiteshvara). The two-day practice involves fasting, silence, and intensive recitation of mantras and prayers. This class prepares students to undertake Ngyungne properly — covering the full ritual sequence, the Eight Mahayana Precepts, the benefits and meaning of each practice element, and how to maintain the correct physical and mental discipline throughout. This is the foundational training for those wishing to participate in our International Ngyungne Retreats.',
+        category: 'Ngyungne Practice',
+        duration: 'Ongoing — monthly intensive sessions',
         language: ['English', 'Nepali', 'Tibetan', 'Hindi'],
         instructor: {
           name: 'Venerable Khen Rinpoche',
-          title: 'Senior Buddhist Teacher',
-          bio: 'Over 20 years of experience teaching Buddhist philosophy',
-          image: 'https://images.unsplash.com/photo-1544476915-ed1370594142?auto=format&fit=crop&q=80'
+          title: 'Senior Tibetan Buddhist Teacher',
+          bio: 'Venerable Khen Rinpoche has over 25 years of experience in Tibetan Buddhist ritual practice and has trained students across Nepal, India, and internationally. He specialises in chanting traditions, ritual liturgy, and foundational Vajrayana practices.',
+          image: 'https://res.cloudinary.com/dcsgax3ld/image/upload/v1773576710/WhatsApp_Image_2026-03-12_at_21.36.25_2_dnhv90.jpg',
         },
         highlights: [
-          'Understanding Four Noble Truths',
-          'Noble Eightfold Path',
-          'Buddhist Ethics and Morality',
-          'Meditation Techniques'
+          'Complete Ngyungne ritual sequence — day one and day two',
+          'Eight Mahayana Precepts: meaning, taking and maintaining',
+          'Thousand-Armed Chenrezig sadhana and visualization',
+          'Six-syllable mantra (Om Mani Padme Hum) recitation practice',
+          'Mudras (hand gestures) used throughout the practice',
+          'Fasting discipline and mental training guidance',
+          'Purification of negative karma and accumulation of merit',
+          'Preparation for group Ngyungne retreat participation',
         ],
         materials: [
-          'Course Handouts',
-          'Audio/Video Tutorials',
-          'Course Certificate'
+          'Complete Ngyungne practice text (Tibetan with transliteration)',
+          'Audio recordings of all prayers and mantras',
+          'Video guidance for mudras and ritual sequence',
+          'Written guide to the Eight Mahayana Precepts',
+          'Course completion certificate',
         ],
-        categoryId: undefined
-      }
-    ]
+        categoryId: 'ngyungne-practice',
+      },
+    ],
   },
-  
 ];
