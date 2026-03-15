@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Loader2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
-const EMAILJS_SERVICE_ID  = 'service_9eidc4v';
+const EMAILJS_SERVICE_ID  = 'service_e8tjodn';
 const EMAILJS_TEMPLATE_ID = 'template_0na8fw3';
 const EMAILJS_PUBLIC_KEY  = 'ar7BuT-S-2ysVDrIB';
 
@@ -47,7 +47,9 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
     background: '#fdf8f3',
     border: `1px solid ${focused === f ? '#b91c1c' : 'rgba(185,28,28,0.2)'}`,
     borderRadius: '4px', color: '#1a0808',
-    fontFamily: "'Crimson Text',serif", fontSize: '15px',
+    fontFamily: "'Crimson Text',serif",
+    // 16px prevents iOS auto-zoom on input focus
+    fontSize: '16px',
     outline: 'none', transition: 'border-color 0.2s, box-shadow 0.2s',
     boxShadow: focused === f ? '0 0 0 3px rgba(185,28,28,0.08)' : 'none',
   });
@@ -120,7 +122,11 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
             position: 'fixed', inset: 0, zIndex: 9999,
             background: 'rgba(26,8,8,0.6)',
             backdropFilter: 'blur(5px)',
-            display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+            WebkitBackdropFilter: 'blur(5px)',
+            // Use flex so the modal can be centred; overflowY lets backdrop scroll
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
             padding: '16px',
             overflowY: 'auto',
           }}
@@ -139,19 +145,31 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                 width: '100%',
                 maxWidth: '460px',
                 boxShadow: '0 24px 60px rgba(26,8,8,0.2)',
+                // Constrain height so it doesn't overflow the viewport on mobile
+                maxHeight: 'calc(100svh - 32px)',
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
               <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;600&display=swap');
+                *, *::before, *::after { box-sizing: border-box; }
                 input::placeholder, textarea::placeholder { color: rgba(26,8,8,0.22) !important; }
                 select option { background: #fff; color: #1a0808; }
                 @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
                 .reg-scr::-webkit-scrollbar { width: 3px; }
                 .reg-scr::-webkit-scrollbar-thumb { background: rgba(185,28,28,0.2); border-radius:2px; }
+
+                /* Name+Phone and Country+Ticket: side-by-side on wider screens,
+                   stacked on narrow mobile */
+                .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                @media (max-width: 400px) {
+                  .form-row-2 { grid-template-columns: 1fr; }
+                }
               `}</style>
 
-              {/* Header */}
-              <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(185,28,28,0.1)', background: 'rgba(185,28,28,0.025)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderRadius: '8px 8px 0 0' }}>
+              {/* Header — fixed, never scrolls away */}
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(185,28,28,0.1)', background: 'rgba(185,28,28,0.025)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderRadius: '8px 8px 0 0', flexShrink: 0 }}>
                 <div style={{ flex: 1, minWidth: 0, paddingRight: '10px' }}>
                   <p style={{ fontFamily: "'Cinzel',serif", fontSize: '7.5px', letterSpacing: '0.35em', color: '#b91c1c', textTransform: 'uppercase', marginBottom: '3px' }}>Register Now</p>
                   <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '14px', fontWeight: 700, color: '#1a0808', lineHeight: 1.2, marginBottom: '3px' }}>Event Registration</h3>
@@ -162,13 +180,13 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                     </p>
                   )}
                 </div>
-                <button onClick={handleClose} style={{ background: 'rgba(185,28,28,0.06)', border: '1px solid rgba(185,28,28,0.15)', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
+                <button onClick={handleClose} style={{ background: 'rgba(185,28,28,0.06)', border: '1px solid rgba(185,28,28,0.15)', borderRadius: '50%', width: '32px', height: '32px', minWidth: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
                   <X size={13} color="#a07070" />
                 </button>
               </div>
 
-              {/* Body — scrolls internally on very small screens */}
-              <div className="reg-scr" style={{ padding: '18px 20px', maxHeight: 'calc(100svh - 140px)', overflowY: 'auto' }}>
+              {/* Body — this scrolls when content is taller than the modal */}
+              <div className="reg-scr" style={{ padding: '18px 20px', overflowY: 'auto', flex: 1 }}>
                 {submitted ? (
                   <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center', padding: '30px 16px' }}>
                     <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(22,163,74,0.1)', border: '2px solid rgba(22,163,74,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
@@ -183,7 +201,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
 
                     {/* Name + Phone */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    <div className="form-row-2">
                       <div>
                         <label style={lbl}>Full Name *</label>
                         <input type="text" required value={form.fullName}
@@ -210,7 +228,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                     </div>
 
                     {/* Country + Ticket */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    <div className="form-row-2">
                       <div>
                         <label style={lbl}>Country *</label>
                         <select value={form.country}
@@ -278,6 +296,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
                       boxShadow: isSending ? 'none' : '0 6px 20px rgba(185,28,28,0.25)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
                       transition: 'all 0.2s',
+                      minHeight: '46px',
                     }}>
                       {isSending
                         ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> Sending…</>
