@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { NavItems } from '../config/navigation';
+import EventRegistrationForm from './events/EventRegistrationForm';
 
 const LOGO_URL =
   'https://res.cloudinary.com/dihev9qxc/image/upload/v1773154972/WhatsApp_Image_2026-03-10_at_15.26.43-removebg-preview_eixatv.png';
@@ -9,6 +10,7 @@ const LOGO_URL =
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [regOpen, setRegOpen] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
@@ -44,6 +46,7 @@ const Navbar = () => {
           text-transform:uppercase; color:#b91c1c; text-decoration:none;
           padding:9px 20px; border-radius:3px;
           border:1px solid rgba(185,28,28,0.4); background:transparent; transition:all 0.3s;
+          cursor:pointer;
         }
         .reg-btn:hover { background:rgba(185,28,28,0.06); border-color:#b91c1c; transform:translateY(-1px); }
         .mob-lnk {
@@ -84,7 +87,9 @@ const Navbar = () => {
               ))}
             </div>
             <div className="desk-nav" style={{ width:'1px', height:'20px', background:'rgba(185,28,28,0.15)' }} />
-            <Link to="/events" className="reg-btn desk-nav">Register</Link>
+
+            {/* Register button — opens modal */}
+            <button onClick={() => setRegOpen(true)} className="reg-btn desk-nav">Register</button>
             <Link to="/support" className="sup-btn desk-nav">Support Us</Link>
 
             {/* Hamburger */}
@@ -101,13 +106,22 @@ const Navbar = () => {
               <Link key={item.path} to={item.path} className={`mob-lnk${location.pathname===item.path?' active':''}`}>{item.label}</Link>
             ))}
             <div style={{ marginTop:'12px' }}>
-              <Link to="/events" className="reg-btn" style={{ display:'block', textAlign:'center', marginBottom:'8px' }}>Register</Link>
+              {/* Register button in mobile — opens modal */}
+              <button onClick={() => { setIsOpen(false); setRegOpen(true); }} className="reg-btn" style={{ display:'block', textAlign:'center', marginBottom:'8px', width:'100%' }}>Register</button>
               <Link to="/support" className="sup-btn" style={{ display:'block', textAlign:'center' }}>Support Us</Link>
             </div>
           </div>
         )}
       </nav>
       <div style={{ height:'74px' }} />
+
+      {/* Registration Modal */}
+      <EventRegistrationForm
+        isOpen={regOpen}
+        onClose={() => setRegOpen(false)}
+        onSubmit={() => setRegOpen(false)}
+        eventTitle="BTMC Foundation Event"
+      />
     </>
   );
 };
