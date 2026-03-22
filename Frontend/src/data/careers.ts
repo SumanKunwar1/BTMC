@@ -26,5 +26,30 @@ export const jobPostings: JobPosting[] = [
     postedDate: '2024-03-01',
     deadline: '2024-04-15'
   },
+  {
+    id: 'buddhist-teacher-2026',
+    title: 'Office assistant',
+    department: 'Education',
+    location: 'Kathmandu, Nepal',
+    type: 'Full-time',
+    description: 'We are seeking an experienced office assistant...',
+    requirements: [
+      'Previous office experience',
+      'Proficient in Microsoft Office Suite',
+      'Fluent in English and Nepali'
+    ],
+    responsibilities: [
+      'Handle administrative tasks',
+      'Manage correspondence',
+      'Support staff and faculty'
+    ],
+    benefits: [
+      'Accommodation provided',
+      'Medical coverage',
+      'Professional development opportunities'
+    ],
+    postedDate: '2024-03-01',
+    deadline: '2024-04-15'
+  },
   // Add more job postings...
 ];
